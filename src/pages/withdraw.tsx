@@ -28,7 +28,7 @@ const networkOptions = [
   { value: "TRC20",         label: "Tron (TRC20)",             addressLabel: "Wallet Address",             addressPlaceholder: "T..."  },
   { value: "SHAM_CASH",     label: "(Sham Cash)",      addressLabel: "Phone Number",               addressPlaceholder: "09xxxxxxxx" },
   { value: "SYRIATEL_CASH", label: "(Syriatel Cash)", addressLabel: "Phone Number",           addressPlaceholder: "09xxxxxxxx" },
-  { value: "COENEX_EMAIL",  label: "Coenex (Email)",           addressLabel: "Email Address",              addressPlaceholder: "you@example.com" },
+  { value: "COENEX_EMAIL",  label: "Coinex (Email)",           addressLabel: "Email Address",              addressPlaceholder: "you@example.com" },
 ];
 
 const withdrawSchema = z.object({
