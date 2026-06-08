@@ -15,23 +15,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
-st } = useToast();
-  const queryClient = useQueryClient();
-  const { data: balanceData } = useGetBalance();
-  const { data: historyData, isLoading: historyLoading } = useListWithdrawals({ page: 1, limit: 10 });
-  const withdrawMutation = useCreateWithdrawal();
-
-  const form = useForm<WithdrawForm>({
-    resolver: zodResolver(withdrawSchema),
-    defaultValues: {
-      amount: "",
-      network: "BEP20",
-      walletAddress: "",
-    },
-  });
-
-  const selectedNetwork = form.watch("network");
-  const networkMeta = networkOptions.find(n => n.value === selectedNetwork) ?? networkOptions[0];
 const formatMoney = (value?: string | number | null) => {
   const n = Number(value ?? 0);
   return new Intl.NumberFormat("en-US", {
@@ -57,7 +40,24 @@ const withdrawSchema = z.object({
 type WithdrawForm = z.infer<typeof withdrawSchema>;
 
 export default function Withdraw() {
-  const { toa
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const { data: balanceData } = useGetBalance();
+  const { data: historyData, isLoading: historyLoading } = useListWithdrawals({ page: 1, limit: 10 });
+  const withdrawMutation = useCreateWithdrawal();
+
+  const form = useForm<WithdrawForm>({
+    resolver: zodResolver(withdrawSchema),
+    defaultValues: {
+      amount: "",
+      network: "BEP20",
+      walletAddress: "",
+    },
+  });
+
+  const selectedNetwork = form.watch("network");
+  const networkMeta = networkOptions.find(n => n.value === selectedNetwork) ?? networkOptions[0];
+
   const onSubmit = (data: WithdrawForm) => {
     withdrawMutation.mutate({ data: { ...data, network: data.network as any } }, {
       onSuccess: () => {
