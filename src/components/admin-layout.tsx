@@ -16,7 +16,7 @@ const adminNavItems = [
   { href: "/admin/verifications", label: "Verif. Codes", icon: KeyRound },
 ];
 
-function captaincashLogo() {
+function CaptaincashLogo() {
   return (
     <div className="flex items-center gap-2">
       <img src="/logo.jpg" alt="Captain Cach" className="w-8 h-8 rounded-md object-cover shadow-[0_2px_8px_rgba(220,38,38,0.35)]" />
@@ -68,7 +68,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex w-full bg-background text-foreground">
       <aside className="hidden lg:flex flex-col w-60 border-r border-border bg-sidebar shrink-0">
         <div className="p-5 border-b border-border">
-          <Link href="/"><captaincashLogo /></Link>
+          <Link href="/"><CaptaincashLogo /></Link>
           <div className="mt-2 flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             <span className="text-[11px] text-primary font-bold uppercase tracking-widest">Admin Panel</span>
@@ -94,14 +94,14 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 flex flex-col min-w-0">
         <header className="lg:hidden flex items-center justify-between p-4 border-b border-border bg-sidebar sticky top-0 z-50">
           <div className="flex items-center gap-2">
-            <captaincashLogo />
+            <CaptaincashLogo />
             <span className="text-[10px] text-primary font-bold uppercase tracking-widest hidden sm:block">Admin</span>
           </div>
           <Sheet>
             <SheetTrigger asChild><Button variant="ghost" size="icon"><Menu className="h-5 w-5" /></Button></SheetTrigger>
             <SheetContent side="left" className="w-60 p-0 bg-sidebar border-border">
               <div className="p-5 border-b border-border">
-                <captaincashLogo />
+                <CaptaincashLogo />
                 <div className="mt-2 flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span className="text-[11px] text-primary font-bold uppercase tracking-widest">Admin Panel</span>
