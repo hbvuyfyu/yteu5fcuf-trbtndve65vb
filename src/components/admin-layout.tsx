@@ -19,8 +19,8 @@ const adminNavItems = [
 function CaptaincashLogo() {
   return (
     <div className="flex items-center gap-2">
-      <img src="/logo.jpg" alt="Captain Cach" className="w-8 h-8 rounded-md object-cover shadow-[0_2px_8px_rgba(220,38,38,0.35)]" />
-      <span className="text-lg font-black tracking-tight text-foreground">Captain <span className="text-primary">Cach</span></span>
+      <img src="/logo.jpg" alt="Captain Cash" className="w-8 h-8 rounded-md object-cover shadow-[0_2px_8px_rgba(220,38,38,0.35)]" />
+      <span className="text-lg font-black tracking-tight text-foreground">Captain <span className="text-primary">Cash</span></span>
     </div>
   );
 }
