@@ -37,7 +37,7 @@ function CaptaincashLogo({ className = "" }: { className?: string }) {
     <div className={`flex items-center gap-2 ${className}`}>
       <img src="/logo.jpg" alt="Captain Cash" className="w-8 h-8 rounded-lg object-cover shadow-[0_2px_8px_rgba(220,38,38,0.35)]" />
       <span className="text-xl font-black tracking-tight text-foreground">
-        Captain <span className="text-primary">Cach</span>
+        Captain <span className="text-primary">Cash</span>
       </span>
     </div>
   );
@@ -155,7 +155,7 @@ export default function Landing() {
       <section id="features" className="py-24 bg-red-50/60 border-y border-red-100 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-3 block">Why Captain Cach</span>
+            <span className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-3 block">Why Captain Cash</span>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-foreground mb-3">Everything You Need</h2>
             <p className="text-muted-foreground text-lg">Built to maximize your earnings, secured and verified.</p>
           </div>
@@ -209,7 +209,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-3 block">Community</span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-foreground mb-3">Users Trust Captain Cach</h2>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-foreground mb-3">Users Trust Captain Cash</h2>
             <p className="text-muted-foreground text-lg">Real users, real withdrawals.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -261,7 +261,7 @@ export default function Landing() {
       <footer className="border-t border-border bg-white py-10 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <CaptaincashLogo />
-          <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Captain Cach. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Captain Cash. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="/register"><span className="hover:text-primary cursor-pointer transition-colors">Sign Up</span></Link>
             <Link href="/login"><span className="hover:text-primary cursor-pointer transition-colors">Login</span></Link>
