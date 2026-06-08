@@ -15,16 +15,29 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
+st } = useToast();
+  const queryClient = useQueryClient();
+  const { data: balanceData } = useGetBalance();
+  const { data: historyData, isLoading: historyLoading } = useListWithdrawals({ page: 1, limit: 10 });
+  const withdrawMutation = useCreateWithdrawal();
+
+  const form = useForm<WithdrawForm>({
+    resolver: zodResolver(withdrawSchema),
+    defaultValues: {
+      amount: "",
+      network: "BEP20",
+      walletAddress: "",
+    },
+  });
+
+  const selectedNetwork = form.watch("network");
+  const networkMeta = networkOptions.find(n => n.value === selectedNetwork) ?? networkOptions[0];
 const formatMoney = (value?: string | number | null) => {
   const n = Number(value ?? 0);
   return new Intl.NumberFormat("en-US", {
     minimumFractionDigits: n % 1 === 0 ? 0 : 2,
     maximumFractionDigits: 2,
   }).format(n);
-};
-
-const DISPLAY_LABELS: Record<string, string> = {
-  COENEX_EMAIL: "Coinex (Email)",
 };
 
 const networkOptions = [
@@ -44,24 +57,7 @@ const withdrawSchema = z.object({
 type WithdrawForm = z.infer<typeof withdrawSchema>;
 
 export default function Withdraw() {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const { data: balanceData } = useGetBalance();
-  const { data: historyData, isLoading: historyLoading } = useListWithdrawals({ page: 1, limit: 10 });
-  const withdrawMutation = useCreateWithdrawal();
-
-  const form = useForm<WithdrawForm>({
-    resolver: zodResolver(withdrawSchema),
-    defaultValues: {
-      amount: "",
-      network: "BEP20",
-      walletAddress: "",
-    },
-  });
-
-  const selectedNetwork = form.watch("network");
-  const networkMeta = networkOptions.find(n => n.value === selectedNetwork) ?? networkOptions[0];
-
+  const { toa
   const onSubmit = (data: WithdrawForm) => {
     withdrawMutation.mutate({ data: { ...data, network: data.network as any } }, {
       onSuccess: () => {
@@ -76,11 +72,8 @@ export default function Withdraw() {
     });
   };
 
-  const networkDisplayName = (network: string) => {
-    const opt = networkOptions.find(n => n.value === network);
-    if (!opt) return network;
-    return DISPLAY_LABELS[network] ?? opt.label;
-  };
+  const networkDisplayName = (network: string) =>
+    networkOptions.find(n => n.value === network)?.label ?? network;
 
   return (
     <Layout>
@@ -138,9 +131,7 @@ export default function Withdraw() {
                             </FormControl>
                             <SelectContent>
                               {networkOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>
-                                  {DISPLAY_LABELS[opt.value] ?? opt.label}
-                                </SelectItem>
+                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
