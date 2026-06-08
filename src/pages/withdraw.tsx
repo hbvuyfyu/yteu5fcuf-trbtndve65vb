@@ -23,12 +23,16 @@ const formatMoney = (value?: string | number | null) => {
   }).format(n);
 };
 
+const DISPLAY_LABELS: Record<string, string> = {
+  COENEX_EMAIL: "Coinex (Email)",
+};
+
 const networkOptions = [
   { value: "BEP20",         label: "BNB Smart Chain (BEP20)",  addressLabel: "Wallet Address",             addressPlaceholder: "0x..." },
   { value: "TRC20",         label: "Tron (TRC20)",             addressLabel: "Wallet Address",             addressPlaceholder: "T..."  },
   { value: "SHAM_CASH",     label: "(Sham Cash)",      addressLabel: "Phone Number",               addressPlaceholder: "09xxxxxxxx" },
   { value: "SYRIATEL_CASH", label: "(Syriatel Cash)", addressLabel: "Phone Number",           addressPlaceholder: "09xxxxxxxx" },
-  { value: "COENEX_EMAIL",  label: "Coinex (Email)",           addressLabel: "Email Address",              addressPlaceholder: "you@example.com" },
+  { value: "COENEX_EMAIL",  label: "Coenex (Email)",           addressLabel: "Email Address",              addressPlaceholder: "you@example.com" },
 ];
 
 const withdrawSchema = z.object({
@@ -72,8 +76,11 @@ export default function Withdraw() {
     });
   };
 
-  const networkDisplayName = (network: string) =>
-    networkOptions.find(n => n.value === network)?.label ?? network;
+  const networkDisplayName = (network: string) => {
+    const opt = networkOptions.find(n => n.value === network);
+    if (!opt) return network;
+    return DISPLAY_LABELS[network] ?? opt.label;
+  };
 
   return (
     <Layout>
@@ -131,7 +138,9 @@ export default function Withdraw() {
                             </FormControl>
                             <SelectContent>
                               {networkOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                <SelectItem key={opt.value} value={opt.value}>
+                                  {DISPLAY_LABELS[opt.value] ?? opt.label}
+                                </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
