@@ -32,7 +32,7 @@ const steps = [
 
 const partners = ["OfferToro", "CPX Research", "Lootably", "Adgate Media", "BitLabs"];
 
-function captaincashLogo({ className = "" }: { className?: string }) {
+function CaptaincashLogo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <img src="/logo.jpg" alt="Captain Cash" className="w-8 h-8 rounded-lg object-cover shadow-[0_2px_8px_rgba(220,38,38,0.35)]" />
@@ -49,7 +49,7 @@ export default function Landing() {
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-border bg-white/95 backdrop-blur-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
-          <captaincashLogo />
+          <CaptaincashLogo />
           <div className="hidden md:flex gap-7 text-sm text-muted-foreground items-center">
             <a href="#how-it-works" className="hover:text-primary transition-colors font-medium">How It Works</a>
             <a href="#features" className="hover:text-primary transition-colors font-medium">Features</a>
@@ -260,7 +260,7 @@ export default function Landing() {
 
       <footer className="border-t border-border bg-white py-10 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <captaincashLogo />
+          <CaptaincashLogo />
           <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Captain Cach. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="/register"><span className="hover:text-primary cursor-pointer transition-colors">Sign Up</span></Link>
