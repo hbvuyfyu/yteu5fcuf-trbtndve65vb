@@ -29,7 +29,7 @@ export default function Settings() {
   const { data: user } = useGetMe();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   const updateProfileMutation = useUpdateProfile();
   const changePasswordMutation = useChangePassword();
 
@@ -77,19 +77,19 @@ export default function Settings() {
     <Layout>
       <div className="space-y-8 max-w-4xl mx-auto">
         <div>
-          <h2 className="text-3xl font-black tracking-tight uppercase">Settings</h2>
-          <p className="text-muted-foreground">Manage your account preferences.</p>
+          <h2 className="text-3xl font-black tracking-tight uppercase text-white">Settings</h2>
+          <p className="text-zinc-500">Manage your account preferences.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <Card className="bg-card border-border">
+          <Card className="dark-card">
             <CardHeader>
-              <CardTitle className="uppercase tracking-wider">Profile Information</CardTitle>
+              <CardTitle className="uppercase tracking-wider text-white">Profile Information</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="mb-6">
-                <FormLabel className="text-muted-foreground uppercase text-xs font-bold mb-2 block">Email (Read Only)</FormLabel>
-                <Input value={user?.email || ""} disabled className="bg-accent/50 border-input opacity-70" />
+                <FormLabel className="text-zinc-500 uppercase text-xs font-bold mb-2 block">Email (Read Only)</FormLabel>
+                <Input value={user?.email || ""} disabled className="bg-zinc-800/50 border-zinc-700 text-zinc-400" />
               </div>
               <Form {...profileForm}>
                 <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
@@ -98,15 +98,15 @@ export default function Settings() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-muted-foreground uppercase text-xs font-bold">Username</FormLabel>
+                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Username</FormLabel>
                         <FormControl>
-                          <Input {...field} className="bg-background border-input focus-visible:ring-primary" />
+                          <Input {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={updateProfileMutation.isPending} className="font-bold">
+                  <Button type="submit" disabled={updateProfileMutation.isPending} className="font-bold bg-gradient-to-r from-yellow-500 to-yellow-400 text-black hover:from-yellow-400 hover:to-yellow-300 shadow-lg shadow-yellow-500/30">
                     {updateProfileMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Save Profile
                   </Button>
@@ -115,9 +115,9 @@ export default function Settings() {
             </CardContent>
           </Card>
 
-          <Card className="bg-card border-border">
+          <Card className="dark-card">
             <CardHeader>
-              <CardTitle className="uppercase tracking-wider">Change Password</CardTitle>
+              <CardTitle className="uppercase tracking-wider text-white">Change Password</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...passwordForm}>
@@ -127,9 +127,9 @@ export default function Settings() {
                     name="currentPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-muted-foreground uppercase text-xs font-bold">Current Password</FormLabel>
+                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Current Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-background border-input focus-visible:ring-primary" />
+                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,9 +140,9 @@ export default function Settings() {
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-muted-foreground uppercase text-xs font-bold">New Password</FormLabel>
+                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-background border-input focus-visible:ring-primary" />
+                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -153,15 +153,15 @@ export default function Settings() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-muted-foreground uppercase text-xs font-bold">Confirm New Password</FormLabel>
+                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Confirm New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-background border-input focus-visible:ring-primary" />
+                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="secondary" className="font-bold text-white border border-border">
+                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="outline" className="font-bold text-white border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400">
                     {changePasswordMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Update Password
                   </Button>

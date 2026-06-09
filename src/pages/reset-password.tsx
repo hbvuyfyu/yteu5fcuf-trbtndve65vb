@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Coins } from "lucide-react";
 
 const resetPasswordSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -20,11 +20,22 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
+function CachvioLogo() {
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg shadow-yellow-500/30">
+        <Coins className="w-6 h-6 text-black" />
+      </div>
+      <span className="text-2xl font-black tracking-tight text-white">Cach<span className="text-yellow-400">vio</span></span>
+    </div>
+  );
+}
+
 export default function ResetPassword() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const resetPasswordMutation = useResetPassword();
-  
+
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,7 +59,7 @@ export default function ResetPassword() {
       toast({ variant: "destructive", title: "Error", description: "Missing reset token" });
       return;
     }
-    
+
     resetPasswordMutation.mutate({ data: { token, password: data.password } }, {
       onSuccess: () => {
         toast({
@@ -71,10 +82,10 @@ export default function ResetPassword() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4 text-center">
         <div className="space-y-4 max-w-md">
-          <h1 className="text-2xl font-bold text-destructive">Invalid Link</h1>
-          <p className="text-muted-foreground">The password reset link is missing or invalid.</p>
+          <h1 className="text-2xl font-bold text-red-500">Invalid Link</h1>
+          <p className="text-zinc-500">The password reset link is missing or invalid.</p>
           <Link href="/forgot-password">
-            <Button variant="outline" className="w-full">Request New Link</Button>
+            <Button className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold">Request New Link</Button>
           </Link>
         </div>
       </div>
@@ -83,16 +94,13 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
-      
-      <div className="w-full max-w-md bg-card border border-border p-8 rounded-2xl relative z-10 shadow-2xl">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-yellow-600/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none" />
+
+      <div className="w-full max-w-md dark-card p-8 rounded-2xl relative z-10">
         <div className="text-center mb-8">
-          <Link href="/">
-            <h1 className="text-3xl font-bold text-primary tracking-tight cursor-pointer drop-shadow-[0_0_10px_rgba(0,255,135,0.3)] mb-2">
-              GAME<span className="text-white">REWARDS</span>
-            </h1>
-          </Link>
-          <p className="text-muted-foreground text-lg">Create new password</p>
+          <Link href="/"><CachvioLogo /></Link>
+          <p className="text-zinc-500 text-lg mt-4">Create new password</p>
         </div>
 
         <Form {...form}>
@@ -102,9 +110,9 @@ export default function ResetPassword() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-muted-foreground uppercase text-xs tracking-wider font-bold">New Password</FormLabel>
+                  <FormLabel className="text-zinc-500 uppercase text-xs tracking-wider font-bold">New Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} className="bg-background border-input focus-visible:ring-primary h-12" />
+                    <Input type="password" placeholder="••••••••" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-12 text-white placeholder:text-zinc-600" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -115,18 +123,18 @@ export default function ResetPassword() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-muted-foreground uppercase text-xs tracking-wider font-bold">Confirm Password</FormLabel>
+                  <FormLabel className="text-zinc-500 uppercase text-xs tracking-wider font-bold">Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} className="bg-background border-input focus-visible:ring-primary h-12" />
+                    <Input type="password" placeholder="••••••••" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-12 text-white placeholder:text-zinc-600" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
-            <Button 
-              type="submit" 
-              className="w-full h-12 text-black font-bold uppercase tracking-wider hover:bg-primary/90 shadow-[0_0_15px_rgba(0,255,135,0.2)]"
+
+            <Button
+              type="submit"
+              className="w-full h-12 bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold shadow-lg shadow-yellow-500/30 hover:from-yellow-400 hover:to-yellow-300"
               disabled={resetPasswordMutation.isPending}
             >
               {resetPasswordMutation.isPending ? <Loader2 className="animate-spin h-5 w-5" /> : "Reset Password"}

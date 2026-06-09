@@ -8,13 +8,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Coins } from "lucide-react";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+
+function CachvioLogo() {
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg shadow-yellow-500/30">
+        <Coins className="w-6 h-6 text-black" />
+      </div>
+      <span className="text-2xl font-black tracking-tight text-white">Cach<span className="text-yellow-400">vio</span></span>
+    </div>
+  );
+}
 
 export default function ForgotPassword() {
   const { toast } = useToast();
@@ -49,25 +60,22 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
-      
-      <div className="w-full max-w-md bg-card border border-border p-8 rounded-2xl relative z-10 shadow-2xl">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-yellow-600/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none" />
+
+      <div className="w-full max-w-md dark-card p-8 rounded-2xl relative z-10">
         <div className="text-center mb-8">
-          <Link href="/">
-            <h1 className="text-3xl font-bold text-primary tracking-tight cursor-pointer drop-shadow-[0_0_10px_rgba(0,255,135,0.3)] mb-2">
-              GAME<span className="text-white">REWARDS</span>
-            </h1>
-          </Link>
-          <p className="text-muted-foreground text-lg">Reset your password</p>
+          <Link href="/"><CachvioLogo /></Link>
+          <p className="text-zinc-500 text-lg mt-4">Reset your password</p>
         </div>
 
         {success ? (
           <div className="text-center space-y-6">
-            <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-              <p className="text-primary font-medium">We've sent a password reset link to your email.</p>
+            <div className="bg-yellow-500/10 p-4 rounded-lg border border-yellow-500/20">
+              <p className="text-yellow-400 font-medium">We've sent a password reset link to your email.</p>
             </div>
             <Link href="/login">
-              <Button variant="outline" className="w-full h-12">Return to Login</Button>
+              <Button className="w-full h-12 bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold">Return to Login</Button>
             </Link>
           </div>
         ) : (
@@ -78,18 +86,18 @@ export default function ForgotPassword() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-muted-foreground uppercase text-xs tracking-wider font-bold">Email</FormLabel>
+                    <FormLabel className="text-zinc-500 uppercase text-xs tracking-wider font-bold">Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="gamer@example.com" {...field} className="bg-background border-input focus-visible:ring-primary h-12" />
+                      <Input placeholder="you@example.com" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-12 text-white placeholder:text-zinc-600" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
-              <Button 
-                type="submit" 
-                className="w-full h-12 text-black font-bold uppercase tracking-wider hover:bg-primary/90 shadow-[0_0_15px_rgba(0,255,135,0.2)]"
+
+              <Button
+                type="submit"
+                className="w-full h-12 bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold shadow-lg shadow-yellow-500/30 hover:from-yellow-400 hover:to-yellow-300"
                 disabled={forgotPasswordMutation.isPending}
               >
                 {forgotPasswordMutation.isPending ? <Loader2 className="animate-spin h-5 w-5" /> : "Send Reset Link"}
@@ -98,10 +106,10 @@ export default function ForgotPassword() {
           </Form>
         )}
 
-        <div className="mt-8 text-center text-muted-foreground">
+        <div className="mt-8 text-center text-zinc-500">
           Remembered your password?{" "}
           <Link href="/login">
-            <span className="text-primary hover:underline cursor-pointer font-medium">Login</span>
+            <span className="text-yellow-500 hover:underline cursor-pointer font-medium">Login</span>
           </Link>
         </div>
       </div>

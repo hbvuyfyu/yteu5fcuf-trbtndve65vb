@@ -79,21 +79,21 @@ export default function Withdraw() {
     <Layout>
       <div className="space-y-8 max-w-6xl mx-auto">
         <div>
-          <h2 className="text-3xl font-black tracking-tight uppercase">Withdraw Funds</h2>
-          <p className="text-muted-foreground">Transfer your balance to your preferred payment method.</p>
+          <h2 className="text-3xl font-black tracking-tight uppercase text-white">Withdraw Funds</h2>
+          <p className="text-zinc-500">Transfer your balance to your preferred payment method.</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1 space-y-6">
-            <Card className="bg-card border-border">
+            <Card className="dark-card">
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider">Request Withdrawal</CardTitle>
-                <CardDescription>Minimum withdrawal: $1</CardDescription>
+                <CardTitle className="uppercase tracking-wider text-white">Request Withdrawal</CardTitle>
+                <CardDescription className="text-zinc-500">Minimum withdrawal: $1</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="mb-6 p-4 bg-accent rounded-lg border border-border flex justify-between items-center">
-                  <span className="text-muted-foreground uppercase text-xs font-bold">Available</span>
-                  <span className="font-bold">{formatMoney(balanceData?.balance)} USDT</span>
+                <div className="mb-6 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700 flex justify-between items-center">
+                  <span className="text-zinc-500 uppercase text-xs font-bold">Available</span>
+                  <span className="font-bold text-yellow-400">{formatMoney(balanceData?.balance)} USDT</span>
                 </div>
 
                 <Form {...form}>
@@ -103,9 +103,9 @@ export default function Withdraw() {
                       name="amount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-muted-foreground uppercase text-xs font-bold">Amount (USDT)</FormLabel>
+                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Amount (USDT)</FormLabel>
                           <FormControl>
-                            <Input type="number" step="0.01" placeholder="1.00" {...field} className="bg-background border-input focus-visible:ring-primary" />
+                            <Input type="number" step="0.01" placeholder="1.00" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white placeholder:text-zinc-600" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -116,7 +116,7 @@ export default function Withdraw() {
                       name="network"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-muted-foreground uppercase text-xs font-bold">Payment Method</FormLabel>
+                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Payment Method</FormLabel>
                           <Select
                             onValueChange={(val) => {
                               field.onChange(val);
@@ -125,13 +125,13 @@ export default function Withdraw() {
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background border-input focus-visible:ring-primary">
+                              <SelectTrigger className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white">
                                 <SelectValue placeholder="Select method" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-zinc-900 border-zinc-800">
                               {networkOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                <SelectItem key={opt.value} value={opt.value} className="text-white hover:bg-zinc-800">{opt.label}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -144,14 +144,14 @@ export default function Withdraw() {
                       name="walletAddress"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-muted-foreground uppercase text-xs font-bold">
+                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">
                             {networkMeta.addressLabel}
                           </FormLabel>
                           <FormControl>
                             <Input
                               placeholder={networkMeta.addressPlaceholder}
                               {...field}
-                              className="bg-background border-input focus-visible:ring-primary font-mono text-sm"
+                              className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 font-mono text-sm h-11 text-white placeholder:text-zinc-600"
                             />
                           </FormControl>
                           <FormMessage />
@@ -160,7 +160,7 @@ export default function Withdraw() {
                     />
                     <Button
                       type="submit"
-                      className="w-full bg-primary text-white font-bold uppercase tracking-wider hover:bg-primary/90 mt-4"
+                      className="w-full bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold uppercase tracking-wider hover:from-yellow-400 hover:to-yellow-300 mt-4 shadow-lg shadow-yellow-500/30"
                       disabled={withdrawMutation.isPending}
                     >
                       {withdrawMutation.isPending ? <Loader2 className="animate-spin h-5 w-5" /> : "Withdraw Now"}
@@ -172,40 +172,40 @@ export default function Withdraw() {
           </div>
 
           <div className="lg:col-span-2">
-            <Card className="bg-card border-border h-full">
+            <Card className="dark-card h-full">
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider">Withdrawal History</CardTitle>
+                <CardTitle className="uppercase tracking-wider text-white">Withdrawal History</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <Table>
-                    <TableHeader className="bg-accent">
-                      <TableRow className="border-border">
-                        <TableHead className="font-bold text-muted-foreground">Date</TableHead>
-                        <TableHead className="font-bold text-muted-foreground">Amount</TableHead>
-                        <TableHead className="font-bold text-muted-foreground">Method</TableHead>
-                        <TableHead className="font-bold text-muted-foreground">Status</TableHead>
+                    <TableHeader className="bg-zinc-800/50">
+                      <TableRow className="border-zinc-800 hover:bg-transparent">
+                        <TableHead className="font-bold text-zinc-500">Date</TableHead>
+                        <TableHead className="font-bold text-zinc-500">Amount</TableHead>
+                        <TableHead className="font-bold text-zinc-500">Method</TableHead>
+                        <TableHead className="font-bold text-zinc-500">Status</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {historyLoading ? (
-                        <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin h-6 w-6 mx-auto text-primary"/></TableCell></TableRow>
+                        <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin h-6 w-6 mx-auto text-yellow-400"/></TableCell></TableRow>
                       ) : historyData?.withdrawals?.length ? (
                         historyData.withdrawals.map((w) => (
-                          <TableRow key={w.id} className="border-border">
-                            <TableCell className="text-muted-foreground whitespace-nowrap">
+                          <TableRow key={w.id} className="border-zinc-800 hover:bg-zinc-800/30">
+                            <TableCell className="text-zinc-400 whitespace-nowrap">
                               {new Date(w.createdAt).toLocaleDateString()}
                             </TableCell>
-                            <TableCell className="font-bold">{w.amount} USDT</TableCell>
+                            <TableCell className="font-bold text-white">{w.amount} USDT</TableCell>
                             <TableCell>
-                              <Badge variant="outline" className="font-semibold text-xs">
+                              <Badge variant="outline" className="font-semibold text-xs border-zinc-700 text-zinc-300">
                                 {networkDisplayName(w.network)}
                               </Badge>
                             </TableCell>
                             <TableCell>
                               <Badge
                                 variant={w.status === "paid" ? "default" : w.status === "rejected" ? "destructive" : "secondary"}
-                                className="uppercase tracking-wider text-[10px]"
+                                className={`uppercase tracking-wider text-[10px] ${w.status === "paid" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : w.status === "rejected" ? "bg-red-500/20 text-red-400 border-red-500/30" : "bg-amber-500/20 text-amber-400 border-amber-500/30"}`}
                               >
                                 {w.status}
                               </Badge>
@@ -214,7 +214,7 @@ export default function Withdraw() {
                         ))
                       ) : (
                         <TableRow>
-                          <TableCell colSpan={4} className="h-32 text-center text-muted-foreground">
+                          <TableCell colSpan={4} className="h-32 text-center text-zinc-500">
                             No withdrawals yet.
                           </TableCell>
                         </TableRow>

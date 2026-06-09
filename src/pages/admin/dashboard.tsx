@@ -31,17 +31,17 @@ const userGrowthData = [
 ];
 
 const platformData = [
-  { name: "OfferToro", value: 35, color: "#f97316" },
-  { name: "CPX Research", value: 25, color: "#fb923c" },
-  { name: "Lootably", value: 20, color: "#fdba74" },
-  { name: "Adgate", value: 12, color: "#fed7aa" },
-  { name: "BitLabs", value: 8, color: "#ffedd5" },
+  { name: "OfferToro", value: 35, color: "#facc15" },
+  { name: "CPX Research", value: 25, color: "#fbbf24" },
+  { name: "Lootably", value: 20, color: "#f59e0b" },
+  { name: "Adgate", value: 12, color: "#d97706" },
+  { name: "BitLabs", value: 8, color: "#b45309" },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-card border border-border rounded-xl p-3 shadow-lg text-xs">
+      <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-3 shadow-lg text-xs">
         <p className="font-bold text-white mb-1">{label}</p>
         {payload.map((p: any, i: number) => (
           <p key={i} style={{ color: p.color }} className="font-medium">
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
   const statCards = [
     { label: "Total Users", value: stats?.totalUsers, sub: `${stats?.activeUsers ?? 0} active`, icon: Users, color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20" },
     { label: "System Balance", value: `${stats?.totalBalanceInSystem ?? 0} USDT`, sub: "across all wallets", icon: Coins, color: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20" },
-    { label: "Total Withdrawn", value: `${stats?.totalWithdrawnAllTime ?? 0} USDT`, sub: "all time", icon: TrendingUp, color: "text-primary", bg: "bg-primary/10", border: "border-primary/20" },
+    { label: "Total Withdrawn", value: `${stats?.totalWithdrawnAllTime ?? 0} USDT`, sub: "all time", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
     { label: "Pending Withdrawals", value: stats?.pendingWithdrawals, sub: "awaiting review", icon: Clock, color: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/20" },
     { label: "Active Platforms", value: stats?.totalPlatforms, sub: "offerwalls", icon: Gamepad2, color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20" },
     { label: "Admins", value: "—", sub: "manage access", icon: UserCheck, color: "text-teal-400", bg: "bg-teal-500/10", border: "border-teal-500/20" },
@@ -72,14 +72,14 @@ export default function AdminDashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              <Activity className="h-6 w-6 text-primary" />
+              <Activity className="h-6 w-6 text-yellow-400" />
               Admin Overview
             </h2>
-            <p className="text-muted-foreground text-sm mt-0.5">System-wide metrics and performance analytics.</p>
+            <p className="text-zinc-500 text-sm mt-0.5">System-wide metrics and performance analytics.</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/10 border border-primary/20 rounded-full px-3 py-1.5 font-bold">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+            <div className="flex items-center gap-1.5 text-xs text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 rounded-full px-3 py-1.5 font-bold">
+              <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50" />
               Live Data
             </div>
           </div>
@@ -88,20 +88,20 @@ export default function AdminDashboard() {
         {/* Stat Cards */}
         <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
           {statCards.map((stat) => (
-            <Card key={stat.label} className="bg-card border-border hover:border-border/80 transition-all duration-200">
+            <Card key={stat.label} className="dark-card hover:border-yellow-500/30 transition-all duration-200">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
-                <CardTitle className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider">{stat.label}</CardTitle>
+                <CardTitle className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase tracking-wider">{stat.label}</CardTitle>
                 <div className={`w-7 h-7 rounded-lg ${stat.bg} border ${stat.border} flex items-center justify-center shrink-0`}>
                   <stat.icon className={`h-3.5 w-3.5 ${stat.color}`} />
                 </div>
               </CardHeader>
               <CardContent className="p-4 pt-0">
                 {isLoading ? (
-                  <Skeleton className="h-8 w-24 mt-1" />
+                  <Skeleton className="h-8 w-24 mt-1 bg-zinc-800" />
                 ) : (
                   <div className="text-2xl font-black text-white">{stat.value ?? "—"}</div>
                 )}
-                <p className="text-[10px] text-muted-foreground mt-1">{stat.sub}</p>
+                <p className="text-[10px] text-zinc-500 mt-1">{stat.sub}</p>
               </CardContent>
             </Card>
           ))}
@@ -110,21 +110,21 @@ export default function AdminDashboard() {
         {/* Charts Row 1 */}
         <div className="grid gap-4 lg:grid-cols-3">
           {/* Earnings vs Withdrawals */}
-          <Card className="bg-card border-border lg:col-span-2">
+          <Card className="dark-card lg:col-span-2">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-primary" />
+              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+                <TrendingUp className="h-4 w-4 text-yellow-400" />
                 Earnings vs Withdrawals
               </CardTitle>
-              <p className="text-xs text-muted-foreground">Monthly platform performance (USD)</p>
+              <p className="text-xs text-zinc-500">Monthly platform performance (USD)</p>
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <ResponsiveContainer width="100%" height={220}>
                 <AreaChart data={earningsData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="earningsGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#f97316" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#f97316" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#facc15" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#facc15" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="withdrawalsGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.3} />
@@ -132,11 +132,11 @@ export default function AdminDashboard() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#6b7280' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#71717a' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: '#71717a' }} axisLine={false} tickLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: '11px' }} />
-                  <Area type="monotone" dataKey="earnings" name="Earnings" stroke="#f97316" strokeWidth={2} fill="url(#earningsGrad)" />
+                  <Area type="monotone" dataKey="earnings" name="Earnings" stroke="#facc15" strokeWidth={2} fill="url(#earningsGrad)" />
                   <Area type="monotone" dataKey="withdrawals" name="Withdrawals" stroke="#60a5fa" strokeWidth={2} fill="url(#withdrawalsGrad)" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -144,13 +144,13 @@ export default function AdminDashboard() {
           </Card>
 
           {/* Platform Distribution */}
-          <Card className="bg-card border-border">
+          <Card className="dark-card">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                <Gamepad2 className="h-4 w-4 text-primary" />
+              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+                <Gamepad2 className="h-4 w-4 text-yellow-400" />
                 Platform Share
               </CardTitle>
-              <p className="text-xs text-muted-foreground">Traffic distribution</p>
+              <p className="text-xs text-zinc-500">Traffic distribution</p>
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <ResponsiveContainer width="100%" height={220}>
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(val: any) => [`${val}%`, 'Share']} contentStyle={{ background: 'hsl(222,40%,9%)', border: '1px solid hsl(222,20%,14%)', borderRadius: '8px', fontSize: '11px' }} />
+                  <Tooltip formatter={(val: any) => [`${val}%`, 'Share']} contentStyle={{ background: 'rgb(24 24 27)', border: '1px solid rgb(63 63 70)', borderRadius: '8px', fontSize: '11px' }} />
                 </PieChart>
               </ResponsiveContainer>
               <div className="space-y-1.5 mt-2">
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
                   <div key={p.name} className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: p.color }} />
-                      <span className="text-muted-foreground">{p.name}</span>
+                      <span className="text-zinc-400">{p.name}</span>
                     </div>
                     <span className="font-bold text-white">{p.value}%</span>
                   </div>
@@ -181,53 +181,53 @@ export default function AdminDashboard() {
         {/* Charts Row 2 */}
         <div className="grid gap-4 lg:grid-cols-3">
           {/* User Growth */}
-          <Card className="bg-card border-border lg:col-span-2">
+          <Card className="dark-card lg:col-span-2">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                <Users className="h-4 w-4 text-primary" />
+              <CardTitle className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+                <Users className="h-4 w-4 text-yellow-400" />
                 User Growth
               </CardTitle>
-              <p className="text-xs text-muted-foreground">Cumulative registered users</p>
+              <p className="text-xs text-zinc-500">Cumulative registered users</p>
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={userGrowthData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#6b7280' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: '#6b7280' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ background: 'hsl(222,40%,9%)', border: '1px solid hsl(222,20%,14%)', borderRadius: '8px', fontSize: '11px' }} />
-                  <Bar dataKey="users" name="Users" fill="#f97316" radius={[4, 4, 0, 0]} />
+                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#71717a' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: '#71717a' }} axisLine={false} tickLine={false} />
+                  <Tooltip contentStyle={{ background: 'rgb(24 24 27)', border: '1px solid rgb(63 63 70)', borderRadius: '8px', fontSize: '11px' }} />
+                  <Bar dataKey="users" name="Users" fill="#facc15" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
           {/* Quick Actions */}
-          <Card className="bg-card border-border">
+          <Card className="dark-card">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-sm font-bold uppercase tracking-wider">Quick Actions</CardTitle>
+              <CardTitle className="text-sm font-bold uppercase tracking-wider text-white">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-0 grid grid-cols-2 gap-2">
               <Link href="/admin/withdrawals">
-                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-border hover:border-primary/40 hover:text-primary text-xs">
+                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400 text-xs">
                   <ArrowDownUp className="h-5 w-5" />
                   <span>Withdrawals</span>
                 </Button>
               </Link>
               <Link href="/admin/users">
-                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-border hover:border-primary/40 hover:text-primary text-xs">
+                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400 text-xs">
                   <Users className="h-5 w-5" />
                   <span>Users</span>
                 </Button>
               </Link>
               <Link href="/admin/platforms">
-                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-border hover:border-primary/40 hover:text-primary text-xs">
+                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400 text-xs">
                   <Gamepad2 className="h-5 w-5" />
                   <span>Offerwalls</span>
                 </Button>
               </Link>
               <Link href="/admin/verifications">
-                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-border hover:border-primary/40 hover:text-primary text-xs">
+                <Button variant="outline" className="w-full h-auto py-3.5 flex flex-col gap-1 border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400 text-xs">
                   <Clock className="h-5 w-5" />
                   <span>Verif. Codes</span>
                 </Button>
@@ -236,7 +236,7 @@ export default function AdminDashboard() {
 
             {stats?.pendingWithdrawals && Number(stats.pendingWithdrawals) > 0 ? (
               <CardContent className="p-4 pt-0">
-                <div className="bg-red-500/8 border border-red-500/20 rounded-xl p-3 space-y-2">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 space-y-2">
                   <p className="text-xs font-bold text-red-400 uppercase tracking-wider">Action Required</p>
                   <p className="text-white font-bold text-lg">{stats.pendingWithdrawals} pending</p>
                   <Link href="/admin/withdrawals">
@@ -248,11 +248,11 @@ export default function AdminDashboard() {
               </CardContent>
             ) : (
               <CardContent className="p-4 pt-0">
-                <div className="bg-primary/5 border border-primary/20 rounded-xl p-3">
-                  <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1">System Status</p>
+                <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-3">
+                  <p className="text-xs font-bold text-yellow-400 uppercase tracking-wider mb-1">System Status</p>
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    <span className="text-xs text-muted-foreground font-medium">All systems operational</span>
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50" />
+                    <span className="text-xs text-zinc-400 font-medium">All systems operational</span>
                   </div>
                 </div>
               </CardContent>

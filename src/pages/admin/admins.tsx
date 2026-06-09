@@ -12,39 +12,39 @@ export default function AdminAdmins() {
     <Layout>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-black tracking-tight uppercase text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">Admins</h2>
-          <p className="text-muted-foreground">Manage administrative access.</p>
+          <h2 className="text-3xl font-black tracking-tight uppercase text-white">Admins</h2>
+          <p className="text-zinc-500">Manage administrative access.</p>
         </div>
 
-        <Card className="bg-card border-border">
+        <Card className="dark-card">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="bg-accent">
-                  <TableRow className="border-border">
-                    <TableHead>User ID</TableHead>
-                    <TableHead>Username</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
+                <TableHeader className="bg-zinc-800/50">
+                  <TableRow className="border-zinc-800 hover:bg-transparent">
+                    <TableHead className="text-zinc-500 font-bold">User ID</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Username</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Email</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Role</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
-                    <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin h-6 w-6 mx-auto text-primary" /></TableCell></TableRow>
+                    <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin h-6 w-6 mx-auto text-yellow-400" /></TableCell></TableRow>
                   ) : data?.admins?.map(admin => (
-                    <TableRow key={admin.id} className="border-border">
-                      <TableCell className="font-mono text-xs">{admin.userId}</TableCell>
+                    <TableRow key={admin.id} className="border-zinc-800 hover:bg-zinc-800/30">
+                      <TableCell className="font-mono text-xs text-zinc-400">{admin.userId}</TableCell>
                       <TableCell className="font-bold text-white">{admin.username}</TableCell>
-                      <TableCell className="text-muted-foreground">{admin.email}</TableCell>
+                      <TableCell className="text-zinc-400">{admin.email}</TableCell>
                       <TableCell>
-                        <Badge variant={admin.role === 'super_admin' ? 'default' : 'secondary'} className="uppercase tracking-wider text-[10px]">
+                        <Badge variant={admin.role === 'super_admin' ? 'default' : 'secondary'} className={`uppercase tracking-wider text-[10px] ${admin.role === 'super_admin' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' : 'bg-zinc-700 text-zinc-300'}`}>
                           {admin.role.replace('_', ' ')}
                         </Badge>
                       </TableCell>
                     </TableRow>
                   ))}
                   {data?.admins?.length === 0 && (
-                    <TableRow><TableCell colSpan={4} className="text-center py-8">No admins found.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={4} className="text-center py-8 text-zinc-500">No admins found.</TableCell></TableRow>
                   )}
                 </TableBody>
               </Table>

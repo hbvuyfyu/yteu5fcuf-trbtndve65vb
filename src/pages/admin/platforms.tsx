@@ -19,9 +19,7 @@ function PostbackUrl({ platformId, secretKey }: { platformId: number; secretKey?
   const [copied, setCopied] = useState(false);
   const [copiedFile, setCopiedFile] = useState(false);
 
-  // Standard URL: /api/postback/:id
   const standardUrl = `${BASE_URL}/api/postback/${platformId}?user_id={USER_ID}&amount={AMOUNT}&txid={TXN_ID}&secret={YOUR_SECRET}`;
-  // CPX Research / fixed-path URL: /file (platform identified by hash matching secretKey)
   const fileUrl = `${BASE_URL}/file?status={status}&trans_id={trans_id}&user_id={user_id}&sub_id={subid}&sub_id_2={subid_2}&amount_local={amount_local}&amount_usd={amount_usd}&offer_id={offer_ID}&hash={secure_hash}&ip_click={ip_click}`;
 
   const copy = (url: string, setFn: (v: boolean) => void) => {
@@ -33,17 +31,17 @@ function PostbackUrl({ platformId, secretKey }: { platformId: number; secretKey?
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-1.5">
-        <code className="text-xs font-mono text-primary truncate max-w-[190px]">{standardUrl.slice(0, 36)}…</code>
-        <button onClick={() => copy(standardUrl, setCopied)} className="shrink-0 text-muted-foreground hover:text-primary transition-colors" title="Copy standard postback URL">
-          {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
+        <code className="text-xs font-mono text-yellow-400 truncate max-w-[190px]">{standardUrl.slice(0, 36)}…</code>
+        <button onClick={() => copy(standardUrl, setCopied)} className="shrink-0 text-zinc-500 hover:text-yellow-400 transition-colors" title="Copy standard postback URL">
+          {copied ? <Check className="h-3.5 w-3.5 text-yellow-400" /> : <Copy className="h-3.5 w-3.5" />}
         </button>
       </div>
       {secretKey && (
         <div className="flex items-center gap-1.5">
-          <span className="text-[9px] font-bold text-blue-600 bg-blue-50 border border-blue-200 px-1 py-0.5 rounded shrink-0">CPX</span>
-          <code className="text-xs font-mono text-blue-600 truncate max-w-[170px]">{fileUrl.slice(0, 32)}…</code>
-          <button onClick={() => copy(fileUrl, setCopiedFile)} className="shrink-0 text-muted-foreground hover:text-blue-600 transition-colors" title="Copy CPX Research / fixed-path postback URL">
-            {copiedFile ? <Check className="h-3.5 w-3.5 text-blue-600" /> : <Copy className="h-3.5 w-3.5" />}
+          <span className="text-[9px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-1 py-0.5 rounded shrink-0">CPX</span>
+          <code className="text-xs font-mono text-blue-400 truncate max-w-[170px]">{fileUrl.slice(0, 32)}…</code>
+          <button onClick={() => copy(fileUrl, setCopiedFile)} className="shrink-0 text-zinc-500 hover:text-blue-400 transition-colors" title="Copy CPX Research / fixed-path postback URL">
+            {copiedFile ? <Check className="h-3.5 w-3.5 text-blue-400" /> : <Copy className="h-3.5 w-3.5" />}
           </button>
         </div>
       )}
@@ -90,22 +88,22 @@ export default function AdminPlatforms() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center">
           <div>
-            <h2 className="text-2xl font-black tracking-tight text-foreground">Offerwalls</h2>
-            <p className="text-muted-foreground text-sm">Manage offerwall platforms and their postback settings.</p>
+            <h2 className="text-2xl font-black tracking-tight text-white">Offerwalls</h2>
+            <p className="text-zinc-500 text-sm">Manage offerwall platforms and their postback settings.</p>
           </div>
           <PlatformDialog />
         </div>
 
         {/* Featured platform info */}
-        <div className={`rounded-xl p-4 border flex items-start gap-3 ${featuredPlatform ? "bg-orange-50 border-primary/25" : "bg-card border-border"}`}>
-          <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${featuredPlatform ? "bg-primary/15 border border-primary/25" : "bg-muted border border-border"}`}>
-            <Globe className={`h-4 w-4 ${featuredPlatform ? "text-primary" : "text-muted-foreground"}`} />
+        <div className={`rounded-xl p-4 border flex items-start gap-3 ${featuredPlatform ? "bg-yellow-500/5 border-yellow-500/25" : "dark-card"}`}>
+          <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${featuredPlatform ? "bg-yellow-500/15 border border-yellow-500/25" : "bg-zinc-800 border border-zinc-700"}`}>
+            <Globe className={`h-4 w-4 ${featuredPlatform ? "text-yellow-400" : "text-zinc-500"}`} />
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className={`font-bold text-sm ${featuredPlatform ? "text-primary" : "text-foreground"}`}>
+            <h4 className={`font-bold text-sm ${featuredPlatform ? "text-yellow-400" : "text-white"}`}>
               {featuredPlatform ? `Featured on Landing Page: "${featuredPlatform.name}"` : "No Platform Featured on Landing Page"}
             </h4>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-zinc-500 mt-0.5">
               {featuredPlatform
                 ? "This platform appears in an iframe on the landing page. Click the star icon to change or remove it."
                 : "Click the star icon next to any platform to feature it on the landing page inside an iframe for visitors."}
@@ -114,50 +112,50 @@ export default function AdminPlatforms() {
         </div>
 
         {/* Postback info */}
-        <div className="bg-card border border-border rounded-xl p-4 space-y-2">
+        <div className="dark-card rounded-xl p-4 space-y-2">
           <div className="flex items-center gap-2 mb-1">
-            <Link2 className="h-4 w-4 text-primary" />
-            <h4 className="font-bold text-foreground text-sm">How Automatic Crediting Works</h4>
+            <Link2 className="h-4 w-4 text-yellow-400" />
+            <h4 className="font-bold text-white text-sm">How Automatic Crediting Works</h4>
           </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Each platform has a unique <span className="text-primary font-mono font-semibold">Postback URL</span>.
+          <p className="text-xs text-zinc-400 leading-relaxed">
+            Each platform has a unique <span className="text-yellow-400 font-mono font-semibold">Postback URL</span>.
             Paste it in the offerwall's dashboard. When a user completes an offer, the offerwall calls this URL and the user's balance is credited automatically.
-            You can customize the <span className="text-primary font-semibold">Postback Param Names</span> per platform (e.g. CPX Research uses <code className="font-mono">status</code> instead of <code className="font-mono">txid</code>).
+            You can customize the <span className="text-yellow-400 font-semibold">Postback Param Names</span> per platform (e.g. CPX Research uses <code className="font-mono">status</code> instead of <code className="font-mono">txid</code>).
           </p>
         </div>
 
-        <Card className="bg-card border-border shadow-sm">
+        <Card className="dark-card">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="bg-muted/50">
-                  <TableRow className="border-border">
-                    <TableHead className="font-bold">Name</TableHead>
-                    <TableHead className="font-bold">Postback URL</TableHead>
-                    <TableHead className="font-bold">Offer URL</TableHead>
-                    <TableHead className="font-bold">Status</TableHead>
-                    <TableHead className="font-bold text-center">Featured</TableHead>
-                    <TableHead className="text-right font-bold">Actions</TableHead>
+                <TableHeader className="bg-zinc-800/50">
+                  <TableRow className="border-zinc-800 hover:bg-transparent">
+                    <TableHead className="text-zinc-500 font-bold">Name</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Postback URL</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Offer URL</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Status</TableHead>
+                    <TableHead className="text-zinc-500 font-bold text-center">Featured</TableHead>
+                    <TableHead className="text-zinc-500 font-bold text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
-                    <TableRow><TableCell colSpan={6} className="text-center py-10"><Loader2 className="animate-spin h-6 w-6 mx-auto text-primary" /></TableCell></TableRow>
+                    <TableRow><TableCell colSpan={6} className="text-center py-10"><Loader2 className="animate-spin h-6 w-6 mx-auto text-yellow-400" /></TableCell></TableRow>
                   ) : data?.platforms?.map((p: any) => {
                     const isFeatured = p.placement === "homepage";
                     const hasCustomParams = p.paramUserId || p.paramAmount || p.paramTxid || p.paramStatus;
                     return (
-                      <TableRow key={p.id} className={`border-border transition-colors ${isFeatured ? "bg-orange-50/60 hover:bg-orange-50" : "hover:bg-muted/30"}`}>
+                      <TableRow key={p.id} className={`border-zinc-800 transition-colors ${isFeatured ? "bg-yellow-500/5 hover:bg-yellow-500/10" : "hover:bg-zinc-800/30"}`}>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            {p.logoUrl && <img src={p.logoUrl} alt={p.name} className="w-6 h-6 rounded object-cover border border-border" />}
+                            {p.logoUrl && <img src={p.logoUrl} alt={p.name} className="w-6 h-6 rounded object-cover border border-zinc-700" />}
                             <div>
-                              <span className="font-bold text-foreground">{p.name}</span>
+                              <span className="font-bold text-white">{p.name}</span>
                               {isFeatured && (
-                                <span className="ml-1.5 text-[10px] bg-primary text-white px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Featured</span>
+                                <span className="ml-1.5 text-[10px] bg-yellow-500 text-black px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Featured</span>
                               )}
                               {hasCustomParams && (
-                                <span className="ml-1 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Custom Params</span>
+                                <span className="ml-1 text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Custom Params</span>
                               )}
                             </div>
                           </div>
@@ -170,13 +168,13 @@ export default function AdminPlatforms() {
                         </TableCell>
                         <TableCell>
                           {p.apiEndpoint ? (
-                            <span className="text-xs font-mono text-muted-foreground truncate block max-w-[130px]">
+                            <span className="text-xs font-mono text-zinc-500 truncate block max-w-[130px]">
                               {p.apiEndpoint.slice(0, 28)}{p.apiEndpoint.length > 28 ? "…" : ""}
                             </span>
-                          ) : <span className="text-muted-foreground text-sm">—</span>}
+                          ) : <span className="text-zinc-500 text-sm">—</span>}
                         </TableCell>
                         <TableCell>
-                          <Badge variant={p.isEnabled ? 'default' : 'secondary'} className={p.isEnabled ? "bg-green-100 text-green-700 border-green-200 hover:bg-green-100" : ""}>
+                          <Badge variant={p.isEnabled ? 'default' : 'secondary'} className={p.isEnabled ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-zinc-700 text-zinc-400"}>
                             {p.isEnabled ? 'Active' : 'Disabled'}
                           </Badge>
                         </TableCell>
@@ -187,11 +185,11 @@ export default function AdminPlatforms() {
                             title={isFeatured ? "Remove from landing page" : "Set as featured on landing page"}
                             className={`w-8 h-8 rounded-lg flex items-center justify-center mx-auto transition-all duration-200 ${
                               isFeatured
-                                ? "bg-primary text-white shadow-[0_2px_8px_rgba(249,115,22,0.3)]"
-                                : "bg-muted text-muted-foreground hover:bg-primary/15 hover:text-primary"
+                                ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/30"
+                                : "bg-zinc-800 text-zinc-500 hover:bg-yellow-500/15 hover:text-yellow-400"
                             }`}
                           >
-                            <Star className={`h-4 w-4 ${isFeatured ? "fill-white" : ""}`} />
+                            <Star className={`h-4 w-4 ${isFeatured ? "fill-black" : ""}`} />
                           </button>
                         </TableCell>
                         <TableCell className="text-right">
@@ -200,7 +198,7 @@ export default function AdminPlatforms() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="text-destructive hover:bg-destructive/10 hover:text-destructive h-8 w-8 p-0"
+                              className="text-red-400 hover:bg-red-500/10 hover:text-red-400 h-8 w-8 p-0"
                               onClick={() => handleDelete(p.id, p.name)}
                             >
                               <Trash2 className="h-4 w-4" />
@@ -212,7 +210,7 @@ export default function AdminPlatforms() {
                   })}
                   {(!data?.platforms || data.platforms.length === 0) && !isLoading && (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center py-12 text-muted-foreground">
+                      <TableCell colSpan={6} className="text-center py-12 text-zinc-500">
                         No platforms yet. Add your first offerwall above.
                       </TableCell>
                     </TableRow>
@@ -242,7 +240,6 @@ function PlatformDialog({ platform }: { platform?: any }) {
   const [secretKey, setSecretKey] = useState(platform?.secretKey || "");
   const [placement, setPlacement] = useState<any>(platform?.placement || "dedicated");
   const [isEnabled, setIsEnabled] = useState(platform?.isEnabled ?? true);
-  // Custom postback param names
   const [paramUserId, setParamUserId] = useState(platform?.paramUserId || "");
   const [paramAmount, setParamAmount] = useState(platform?.paramAmount || "");
   const [paramTxid, setParamTxid] = useState(platform?.paramTxid || "");
@@ -276,131 +273,130 @@ function PlatformDialog({ platform }: { platform?: any }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {platform ? (
-          <Button variant="outline" size="sm" className="border-border hover:border-primary/40 hover:text-primary text-xs h-8">Edit</Button>
+          <Button variant="outline" size="sm" className="border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400 text-xs h-8">Edit</Button>
         ) : (
-          <Button className="bg-primary text-white font-bold hover:bg-primary/90">
+          <Button className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold hover:from-yellow-400 hover:to-yellow-300 shadow-lg shadow-yellow-500/30">
             <Plus className="mr-2 h-4 w-4" /> Add Offerwall
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="bg-card border-border max-w-md max-h-[92vh] overflow-y-auto">
+      <DialogContent className="dark-card max-w-md max-h-[92vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{platform ? 'Edit Offerwall' : 'Add Offerwall'}</DialogTitle>
+          <DialogTitle className="text-white">{platform ? 'Edit Offerwall' : 'Add Offerwall'}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-2">
 
-          {/* Basic fields */}
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Platform Name *</Label>
-            <Input placeholder="e.g. CPX Research" value={name} onChange={e => setName(e.target.value)} />
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Platform Name *</Label>
+            <Input placeholder="e.g. CPX Research" value={name} onChange={e => setName(e.target.value)} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600" />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Description</Label>
-            <Input placeholder="Short description" value={description} onChange={e => setDescription(e.target.value)} />
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Description</Label>
+            <Input placeholder="Short description" value={description} onChange={e => setDescription(e.target.value)} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600" />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Offer Wall URL</Label>
-            <Input placeholder="https://example.com/wall?uid={USER_ID}" value={apiEndpoint} onChange={e => setApiEndpoint(e.target.value)} className="font-mono text-sm" />
-            <p className="text-xs text-muted-foreground">Use <code className="text-primary">{"{USER_ID}"}</code> as placeholder — replaced automatically.</p>
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Offer Wall URL</Label>
+            <Input placeholder="https://example.com/wall?uid={USER_ID}" value={apiEndpoint} onChange={e => setApiEndpoint(e.target.value)} className="font-mono text-sm bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600" />
+            <p className="text-xs text-zinc-500">Use <code className="text-yellow-400">{"{USER_ID}"}</code> as placeholder — replaced automatically.</p>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Secret Key</Label>
-            <Input placeholder="Secret key from offerwall dashboard" value={secretKey} onChange={e => setSecretKey(e.target.value)} className="font-mono text-sm" />
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Secret Key</Label>
+            <Input placeholder="Secret key from offerwall dashboard" value={secretKey} onChange={e => setSecretKey(e.target.value)} className="font-mono text-sm bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600" />
           </div>
           {platform && (
-            <div className="bg-orange-50 border border-primary/20 rounded-lg p-3 space-y-1.5">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Postback URL</Label>
+            <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-lg p-3 space-y-1.5">
+              <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Postback URL</Label>
               <PostbackUrl
                 platformId={platform.id}
                 secretKey={secretKey}
               />
-              <p className="text-xs text-muted-foreground">Paste this URL in the offerwall's postback settings.</p>
+              <p className="text-xs text-zinc-500">Paste this URL in the offerwall's postback settings.</p>
             </div>
           )}
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Logo URL</Label>
-            <Input placeholder="https://..." value={logoUrl} onChange={e => setLogoUrl(e.target.value)} className="font-mono text-sm" />
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Logo URL</Label>
+            <Input placeholder="https://..." value={logoUrl} onChange={e => setLogoUrl(e.target.value)} className="font-mono text-sm bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600" />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Placement</Label>
-            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={placement} onChange={e => setPlacement(e.target.value)}>
+            <Label className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Placement</Label>
+            <select className="flex h-10 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white" value={placement} onChange={e => setPlacement(e.target.value)}>
               <option value="dedicated">Dedicated Page</option>
               <option value="homepage">Featured on Homepage (Landing Page iframe)</option>
               <option value="sidebar">Sidebar</option>
             </select>
-            {placement === "homepage" && <p className="text-xs text-primary font-medium">This platform will appear in an iframe on the landing page for all visitors.</p>}
+            {placement === "homepage" && <p className="text-xs text-yellow-400 font-medium">This platform will appear in an iframe on the landing page for all visitors.</p>}
           </div>
           <div className="flex items-center gap-3 py-1">
             <Switch id="enabled" checked={isEnabled} onCheckedChange={setIsEnabled} />
-            <Label htmlFor="enabled" className="cursor-pointer">{isEnabled ? "Platform is Active" : "Platform is Disabled"}</Label>
+            <Label htmlFor="enabled" className="cursor-pointer text-zinc-300">{isEnabled ? "Platform is Active" : "Platform is Disabled"}</Label>
           </div>
 
           {/* Advanced: Custom Postback Param Names */}
-          <div className="border border-border rounded-xl overflow-hidden">
+          <div className="border border-zinc-700 rounded-xl overflow-hidden">
             <button
               type="button"
               onClick={() => setShowAdvanced(v => !v)}
-              className="w-full flex items-center justify-between px-4 py-3 bg-muted/40 hover:bg-muted/70 transition-colors text-left"
+              className="w-full flex items-center justify-between px-4 py-3 bg-zinc-800/50 hover:bg-zinc-800 transition-colors text-left"
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-foreground">Custom Postback Param Names</span>
+                <span className="text-sm font-bold text-white">Custom Postback Param Names</span>
                 {hasCustomParams && (
-                  <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Configured</span>
+                  <span className="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Configured</span>
                 )}
               </div>
-              {showAdvanced ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+              {showAdvanced ? <ChevronUp className="h-4 w-4 text-zinc-500" /> : <ChevronDown className="h-4 w-4 text-zinc-500" />}
             </button>
             {showAdvanced && (
-              <div className="p-4 space-y-3 border-t border-border bg-card">
-                <p className="text-xs text-muted-foreground leading-relaxed">
+              <div className="p-4 space-y-3 border-t border-zinc-700 bg-zinc-900">
+                <p className="text-xs text-zinc-400 leading-relaxed">
                   Override the postback query parameter names for this platform. Leave blank to use the defaults.
-                  Useful for platforms like <span className="text-foreground font-semibold">CPX Research</span> that use different param names.
+                  Useful for platforms like <span className="text-white font-semibold">CPX Research</span> that use different param names.
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <Label className="text-xs font-bold text-muted-foreground">User ID param</Label>
+                    <Label className="text-xs font-bold text-zinc-500">User ID param</Label>
                     <Input
                       placeholder="user_id"
                       value={paramUserId}
                       onChange={e => setParamUserId(e.target.value)}
-                      className="font-mono text-xs h-9"
+                      className="font-mono text-xs h-9 bg-zinc-800 border-zinc-700 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600"
                     />
-                    <p className="text-[10px] text-muted-foreground">Default: <code>user_id</code></p>
+                    <p className="text-[10px] text-zinc-600">Default: <code>user_id</code></p>
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-xs font-bold text-muted-foreground">Amount param</Label>
+                    <Label className="text-xs font-bold text-zinc-500">Amount param</Label>
                     <Input
                       placeholder="amount"
                       value={paramAmount}
                       onChange={e => setParamAmount(e.target.value)}
-                      className="font-mono text-xs h-9"
+                      className="font-mono text-xs h-9 bg-zinc-800 border-zinc-700 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600"
                     />
-                    <p className="text-[10px] text-muted-foreground">Default: <code>amount</code></p>
+                    <p className="text-[10px] text-zinc-600">Default: <code>amount</code></p>
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-xs font-bold text-muted-foreground">Transaction ID param</Label>
+                    <Label className="text-xs font-bold text-zinc-500">Transaction ID param</Label>
                     <Input
                       placeholder="txid"
                       value={paramTxid}
                       onChange={e => setParamTxid(e.target.value)}
-                      className="font-mono text-xs h-9"
+                      className="font-mono text-xs h-9 bg-zinc-800 border-zinc-700 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600"
                     />
-                    <p className="text-[10px] text-muted-foreground">Default: <code>txid</code></p>
+                    <p className="text-[10px] text-zinc-600">Default: <code>txid</code></p>
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-xs font-bold text-muted-foreground">Status param</Label>
+                    <Label className="text-xs font-bold text-zinc-500">Status param</Label>
                     <Input
                       placeholder="status"
                       value={paramStatus}
                       onChange={e => setParamStatus(e.target.value)}
-                      className="font-mono text-xs h-9"
+                      className="font-mono text-xs h-9 bg-zinc-800 border-zinc-700 focus-visible:ring-yellow-500 text-white placeholder:text-zinc-600"
                     />
-                    <p className="text-[10px] text-muted-foreground">Optional / info only</p>
+                    <p className="text-[10px] text-zinc-600">Optional / info only</p>
                   </div>
                 </div>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-xs text-blue-800 font-semibold mb-1">Example — CPX Research:</p>
-                  <div className="text-[11px] text-blue-700 font-mono space-y-0.5">
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
+                  <p className="text-xs text-blue-400 font-semibold mb-1">Example — CPX Research:</p>
+                  <div className="text-[11px] text-blue-300 font-mono space-y-0.5">
                     <div>User ID param: <strong>ExternalReference</strong></div>
                     <div>Amount param: <strong>RewardValue</strong></div>
                     <div>Transaction ID param: <strong>TransactionId</strong></div>
@@ -411,7 +407,7 @@ function PlatformDialog({ platform }: { platform?: any }) {
             )}
           </div>
 
-          <Button onClick={handleSave} disabled={isPending || !name} className="w-full bg-primary text-white font-bold hover:bg-primary/90">
+          <Button onClick={handleSave} disabled={isPending || !name} className="w-full bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold hover:from-yellow-400 hover:to-yellow-300">
             {isPending ? <Loader2 className="animate-spin h-4 w-4" /> : (platform ? "Save Changes" : "Create Platform")}
           </Button>
         </div>

@@ -67,10 +67,10 @@ export default function AdminVerifications() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center">
           <div>
-            <h2 className="text-3xl font-black tracking-tight uppercase text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">Pending Verifications</h2>
-            <p className="text-muted-foreground">Active verification codes for users who couldn't receive email.</p>
+            <h2 className="text-3xl font-black tracking-tight uppercase text-white">Pending Verifications</h2>
+            <p className="text-zinc-500">Active verification codes for users who couldn't receive email.</p>
           </div>
-          <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching} className="gap-2">
+          <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching} className="gap-2 border-zinc-800 text-zinc-400 hover:text-yellow-400 hover:border-yellow-500/30">
             <RefreshCw className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`} />
             Refresh
           </Button>
@@ -78,51 +78,51 @@ export default function AdminVerifications() {
 
         <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
           <p className="text-amber-400 text-sm font-medium">
-            ⚠ These codes are shown here because email delivery is unavailable (Resend sandbox mode). 
+            These codes are shown here because email delivery is unavailable (Resend sandbox mode).
             Once you verify a domain at resend.com/domains, codes will be sent by email instead and this list will stay empty.
           </p>
         </div>
 
-        <Card className="bg-card border-border">
+        <Card className="dark-card">
           <CardHeader className="pb-0">
-            <CardTitle className="text-base text-muted-foreground font-medium uppercase tracking-wider">
+            <CardTitle className="text-base text-zinc-500 font-medium uppercase tracking-wider">
               {data?.verifications?.length ?? 0} pending code{data?.verifications?.length !== 1 ? "s" : ""}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 mt-4">
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="bg-accent">
-                  <TableRow className="border-border">
-                    <TableHead>Email</TableHead>
-                    <TableHead>Username</TableHead>
-                    <TableHead>Code</TableHead>
-                    <TableHead>Expires</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
+                <TableHeader className="bg-zinc-800/50">
+                  <TableRow className="border-zinc-800 hover:bg-transparent">
+                    <TableHead className="text-zinc-500 font-bold">Email</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Username</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Code</TableHead>
+                    <TableHead className="text-zinc-500 font-bold">Expires</TableHead>
+                    <TableHead className="text-zinc-500 font-bold text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center py-10">
-                        <Loader2 className="animate-spin h-6 w-6 mx-auto text-primary" />
+                        <Loader2 className="animate-spin h-6 w-6 mx-auto text-yellow-400" />
                       </TableCell>
                     </TableRow>
                   ) : data?.verifications?.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={5} className="text-center py-10 text-muted-foreground">
+                      <TableCell colSpan={5} className="text-center py-10 text-zinc-500">
                         No pending verifications — email delivery is working normally.
                       </TableCell>
                     </TableRow>
                   ) : data?.verifications?.map((v) => (
-                    <TableRow key={v.id} className="border-border">
-                      <TableCell className="text-muted-foreground">{v.email}</TableCell>
+                    <TableRow key={v.id} className="border-zinc-800 hover:bg-zinc-800/30">
+                      <TableCell className="text-zinc-400">{v.email}</TableCell>
                       <TableCell className="font-medium text-white">{v.username}</TableCell>
                       <TableCell>
-                        <span className="font-mono text-primary font-black text-lg tracking-widest">{v.code}</span>
+                        <span className="font-mono text-yellow-400 font-black text-lg tracking-widest">{v.code}</span>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={isExpiringSoon(v.expiresAt) ? "destructive" : "secondary"} className="font-mono text-xs">
+                        <Badge variant={isExpiringSoon(v.expiresAt) ? "destructive" : "secondary"} className={`font-mono text-xs ${isExpiringSoon(v.expiresAt) ? "bg-red-500/20 text-red-400 border-red-500/30" : "bg-zinc-700 text-zinc-300"}`}>
                           {formatExpiry(v.expiresAt)}
                         </Badge>
                       </TableCell>
@@ -131,7 +131,7 @@ export default function AdminVerifications() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleCopy(v)}
-                          className="gap-2 bg-primary/10 text-primary border-primary/20 hover:bg-primary hover:text-black"
+                          className="gap-2 bg-yellow-500/10 text-yellow-400 border-yellow-500/20 hover:bg-yellow-500 hover:text-black"
                         >
                           {copiedId === v.id ? <CheckCircle2 className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                           {copiedId === v.id ? "Copied!" : "Copy Code"}
