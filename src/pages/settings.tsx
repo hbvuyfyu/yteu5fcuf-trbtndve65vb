@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { Loader2, User, Lock, Sparkles } from "lucide-react";
+import { Loader2, User, Lock, Sparkles, Settings as SettingsIcon, Shield, Mail } from "lucide-react";
 import { useEffect } from "react";
 
 const profileSchema = z.object({
@@ -77,29 +77,32 @@ export default function Settings() {
     <Layout>
       <div className="space-y-8 max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center border border-amber-500/20">
-            <Sparkles className="h-5 w-5 text-amber-400" />
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center border border-blue-500/15">
+            <SettingsIcon className="w-6 h-6 text-blue-400" />
           </div>
           <div>
-            <h1 className="text-3xl font-black text-white">Settings</h1>
-            <p className="text-zinc-500">Manage your account preferences</p>
+            <h1 className="text-3xl font-extrabold text-white">Settings</h1>
+            <p className="text-slate-500">Manage your account preferences</p>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Profile Card */}
-          <div className="premium-card rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-900/20">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center border border-amber-500/20">
-                <User className="h-4 w-4 text-amber-400" />
+          <div className="modern-card rounded-2xl overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-blue-900/10">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center border border-blue-500/15">
+                <User className="h-4 w-4 text-blue-400" />
               </div>
-              <h2 className="font-bold text-white">Profile Information</h2>
+              <h2 className="font-semibold text-white">Profile Information</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Email (Read Only)</FormLabel>
-                <Input value={user?.email || ""} disabled className="mt-2 h-12 dark-input rounded-xl opacity-60" />
+                <FormLabel className="text-xs text-slate-500 uppercase tracking-wider font-semibold flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5" />
+                  Email (Read Only)
+                </FormLabel>
+                <Input value={user?.email || ""} disabled className="mt-2 h-12 input-modern rounded-xl opacity-60" />
               </div>
               <Form {...profileForm}>
                 <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
@@ -108,15 +111,15 @@ export default function Settings() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Username</FormLabel>
+                        <FormLabel className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Username</FormLabel>
                         <FormControl>
-                          <Input {...field} className="h-12 dark-input rounded-xl" />
+                          <Input {...field} className="h-12 input-modern rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={updateProfileMutation.isPending} className="h-12 btn-premium rounded-xl font-bold">
+                  <Button type="submit" disabled={updateProfileMutation.isPending} className="h-12 btn-primary rounded-xl font-semibold">
                     {updateProfileMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Save Profile
                   </Button>
@@ -126,12 +129,12 @@ export default function Settings() {
           </div>
 
           {/* Password Card */}
-          <div className="premium-card rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-900/20">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-500/20 to-red-600/10 flex items-center justify-center border border-red-500/20">
+          <div className="modern-card rounded-2xl overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-blue-900/10">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-500/20 to-orange-500/10 flex items-center justify-center border border-red-500/15">
                 <Lock className="h-4 w-4 text-red-400" />
               </div>
-              <h2 className="font-bold text-white">Change Password</h2>
+              <h2 className="font-semibold text-white">Change Password</h2>
             </div>
             <div className="p-6">
               <Form {...passwordForm}>
@@ -141,9 +144,9 @@ export default function Settings() {
                     name="currentPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Current Password</FormLabel>
+                        <FormLabel className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Current Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
+                          <Input type="password" {...field} className="h-12 input-modern rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,9 +157,9 @@ export default function Settings() {
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">New Password</FormLabel>
+                        <FormLabel className="text-xs text-slate-500 uppercase tracking-wider font-semibold">New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
+                          <Input type="password" {...field} className="h-12 input-modern rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -167,15 +170,15 @@ export default function Settings() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Confirm New Password</FormLabel>
+                        <FormLabel className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Confirm New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
+                          <Input type="password" {...field} className="h-12 input-modern rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="outline" className="h-12 w-full rounded-xl font-bold border-zinc-700 hover:border-amber-500/40 hover:text-amber-400">
+                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="outline" className="h-12 w-full rounded-xl font-semibold border-slate-700 hover:border-cyan-500/40 hover:text-cyan-400">
                     {changePasswordMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Update Password
                   </Button>

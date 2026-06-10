@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { History, TrendingUp, TrendingDown, ArrowUpDown, RefreshCw } from "lucide-react";
+import { History, TrendingUp, TrendingDown, ArrowUpDown, RefreshCw, Receipt } from "lucide-react";
 
 export default function Transactions() {
   const [page, setPage] = useState(1);
@@ -25,21 +25,21 @@ export default function Transactions() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center border border-blue-500/20">
-              <History className="h-5 w-5 text-blue-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center border border-blue-500/15">
+              <Receipt className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <h1 className="text-3xl font-black text-white">Transactions</h1>
-              <p className="text-zinc-500 text-sm">History of your earnings and withdrawals</p>
+              <h1 className="text-3xl font-extrabold text-white">Transactions</h1>
+              <p className="text-slate-500 text-sm">History of your earnings and withdrawals</p>
             </div>
           </div>
 
           <Select value={type} onValueChange={(v) => { setType(v as ListTransactionsType | "all"); setPage(1); }}>
-            <SelectTrigger className="w-[180px] dark-input rounded-xl h-10">
+            <SelectTrigger className="w-[180px] input-modern rounded-xl h-10">
               <SelectValue placeholder="Filter by type" />
             </SelectTrigger>
-            <SelectContent className="bg-zinc-900 border-zinc-800">
+            <SelectContent className="bg-slate-900 border-slate-800">
               <SelectItem value="all">All Types</SelectItem>
               <SelectItem value="earning">Earnings</SelectItem>
               <SelectItem value="withdrawal">Withdrawals</SelectItem>
@@ -50,39 +50,39 @@ export default function Transactions() {
         </div>
 
         {/* Table Card */}
-        <div className="premium-card rounded-2xl overflow-hidden">
+        <div className="modern-card rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader className="bg-zinc-900/50">
-                <TableRow className="border-zinc-800 hover:bg-transparent">
-                  <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Date</TableHead>
-                  <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Type</TableHead>
-                  <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Description</TableHead>
-                  <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Status</TableHead>
-                  <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider text-right">Amount (USDT)</TableHead>
+              <TableHeader className="bg-slate-900/50">
+                <TableRow className="border-slate-800 hover:bg-transparent">
+                  <TableHead className="font-semibold text-slate-500 text-xs uppercase tracking-wider">Date</TableHead>
+                  <TableHead className="font-semibold text-slate-500 text-xs uppercase tracking-wider">Type</TableHead>
+                  <TableHead className="font-semibold text-slate-500 text-xs uppercase tracking-wider">Description</TableHead>
+                  <TableHead className="font-semibold text-slate-500 text-xs uppercase tracking-wider">Status</TableHead>
+                  <TableHead className="font-semibold text-slate-500 text-xs uppercase tracking-wider text-right">Amount (USDT)</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {isLoading ? (
                   Array.from({ length: 5 }).map((_, i) => (
-                    <TableRow key={i} className="border-zinc-800">
-                      <TableCell><Skeleton className="h-4 w-24 bg-zinc-800 rounded" /></TableCell>
-                      <TableCell><Skeleton className="h-4 w-20 bg-zinc-800 rounded" /></TableCell>
-                      <TableCell><Skeleton className="h-4 w-48 bg-zinc-800 rounded" /></TableCell>
-                      <TableCell><Skeleton className="h-4 w-16 bg-zinc-800 rounded" /></TableCell>
-                      <TableCell className="text-right"><Skeleton className="h-4 w-16 ml-auto bg-zinc-800 rounded" /></TableCell>
+                    <TableRow key={i} className="border-slate-800">
+                      <TableCell><Skeleton className="h-4 w-24 bg-slate-800 rounded" /></TableCell>
+                      <TableCell><Skeleton className="h-4 w-20 bg-slate-800 rounded" /></TableCell>
+                      <TableCell><Skeleton className="h-4 w-48 bg-slate-800 rounded" /></TableCell>
+                      <TableCell><Skeleton className="h-4 w-16 bg-slate-800 rounded" /></TableCell>
+                      <TableCell className="text-right"><Skeleton className="h-4 w-16 ml-auto bg-slate-800 rounded" /></TableCell>
                     </TableRow>
                   ))
                 ) : data?.transactions?.length ? (
                   data.transactions.map((tx) => (
-                    <TableRow key={tx.id} className="border-zinc-800 hover:bg-zinc-800/30 transition-colors">
-                      <TableCell className="text-zinc-400 whitespace-nowrap text-sm">
+                    <TableRow key={tx.id} className="border-slate-800 hover:bg-slate-800/30 transition-colors">
+                      <TableCell className="text-slate-400 whitespace-nowrap text-sm">
                         {new Date(tx.createdAt).toLocaleDateString()} {new Date(tx.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={`text-[10px] font-bold uppercase tracking-wider ${
-                          tx.type === 'earning' ? 'text-amber-400 border-amber-500/20 bg-amber-500/10' :
-                          tx.type === 'withdrawal' ? 'text-blue-400 border-blue-500/20 bg-blue-500/10' :
+                        <Badge variant="outline" className={`text-[10px] font-semibold uppercase tracking-wider ${
+                          tx.type === 'earning' ? 'text-blue-400 border-blue-500/20 bg-blue-500/10' :
+                          tx.type === 'withdrawal' ? 'text-cyan-400 border-cyan-500/20 bg-cyan-500/10' :
                           tx.type === 'adjustment' ? 'text-purple-400 border-purple-500/20 bg-purple-500/10' :
                           'text-emerald-400 border-emerald-500/20 bg-emerald-500/10'
                         }`}>
@@ -91,16 +91,16 @@ export default function Transactions() {
                       </TableCell>
                       <TableCell className="font-medium text-white text-sm">{tx.description}</TableCell>
                       <TableCell>
-                        <Badge variant="secondary" className="uppercase tracking-wider text-[10px] font-bold bg-zinc-800 text-zinc-400 border-zinc-700">{tx.status}</Badge>
+                        <Badge variant="secondary" className="uppercase tracking-wider text-[10px] font-semibold bg-slate-800 text-slate-400 border-slate-700">{tx.status}</Badge>
                       </TableCell>
-                      <TableCell className={`text-right font-bold text-sm ${parseFloat(tx.amount) > 0 ? 'gold-gradient-text' : 'text-white'}`}>
+                      <TableCell className={`text-right font-semibold text-sm ${parseFloat(tx.amount) > 0 ? 'text-gradient-primary' : 'text-white'}`}>
                         {parseFloat(tx.amount) > 0 ? '+' : ''}{tx.amount}
                       </TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-40 text-center text-zinc-500">
+                    <TableCell colSpan={5} className="h-40 text-center text-slate-500">
                       No transactions found.
                     </TableCell>
                   </TableRow>
@@ -110,8 +110,8 @@ export default function Transactions() {
           </div>
 
           {data && data.total > 0 && (
-            <div className="flex items-center justify-between p-4 border-t border-zinc-800 bg-zinc-900/20">
-              <div className="text-sm text-zinc-500">
+            <div className="flex items-center justify-between p-4 border-t border-slate-800 bg-slate-900/20">
+              <div className="text-sm text-slate-500">
                 Showing {((page - 1) * limit) + 1} to {Math.min(page * limit, data.total)} of {data.total}
               </div>
               <div className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export default function Transactions() {
                   size="sm"
                   onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="border-zinc-800 text-zinc-400 hover:text-white hover:border-amber-500/30 rounded-lg"
+                  className="border-slate-800 text-slate-400 hover:text-white hover:border-blue-500/30 rounded-lg"
                 >
                   Previous
                 </Button>
@@ -129,7 +129,7 @@ export default function Transactions() {
                   size="sm"
                   onClick={() => setPage(p => p + 1)}
                   disabled={page * limit >= data.total}
-                  className="border-zinc-800 text-zinc-400 hover:text-white hover:border-amber-500/30 rounded-lg"
+                  className="border-slate-800 text-slate-400 hover:text-white hover:border-blue-500/30 rounded-lg"
                 >
                   Next
                 </Button>

@@ -27991,7 +27991,7 @@ var require_pino = __commonJS({
     function pinoBundlerAbsolutePath(p) {
       try {
         const path2 = __require("path");
-        const outputDir = "/tmp/cc-agent/67709096/project/dist";
+        const outputDir = "/tmp/cc-agent/67726817/project/dist";
         return path2.resolve(outputDir, p.replace(/^\.\//, ""));
       } catch (e) {
         const f = new Function("p", "return new URL(p, import.meta.url).pathname");
