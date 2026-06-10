@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Send, Wallet, History, Sparkles } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const formatMoney = (value?: string | number | null) => {
@@ -78,152 +78,167 @@ export default function Withdraw() {
   return (
     <Layout>
       <div className="space-y-8 max-w-6xl mx-auto">
+        {/* Header */}
         <div>
-          <h2 className="text-3xl font-black tracking-tight uppercase text-white">Withdraw Funds</h2>
-          <p className="text-zinc-500">Transfer your balance to your preferred payment method.</p>
+          <h1 className="text-3xl font-black text-white mb-1">Withdraw Funds</h1>
+          <p className="text-zinc-500">Transfer your balance to your preferred payment method</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Withdrawal Form */}
           <div className="lg:col-span-1 space-y-6">
-            <Card className="dark-card">
-              <CardHeader>
-                <CardTitle className="uppercase tracking-wider text-white">Request Withdrawal</CardTitle>
-                <CardDescription className="text-zinc-500">Minimum withdrawal: $1</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-6 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700 flex justify-between items-center">
-                  <span className="text-zinc-500 uppercase text-xs font-bold">Available</span>
-                  <span className="font-bold text-yellow-400">{formatMoney(balanceData?.balance)} USDT</span>
+            <div className="premium-card rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center border border-amber-500/20">
+                  <Send className="h-5 w-5 text-amber-400" />
                 </div>
+                <div>
+                  <h2 className="font-bold text-white">Request Withdrawal</h2>
+                  <p className="text-xs text-zinc-500">Minimum withdrawal: $1</p>
+                </div>
+              </div>
 
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="amount"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Amount (USDT)</FormLabel>
+              <div className="mb-6 p-4 premium-card rounded-xl flex justify-between items-center">
+                <span className="text-zinc-500 text-xs font-bold uppercase">Available</span>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span className="font-black gold-gradient-text">{formatMoney(balanceData?.balance)} USDT</span>
+                </div>
+              </div>
+
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Amount (USDT)</FormLabel>
+                        <FormControl>
+                          <Input type="number" step="0.01" placeholder="1.00" {...field} className="h-12 dark-input rounded-xl" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="network"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Payment Method</FormLabel>
+                        <Select
+                          onValueChange={(val) => {
+                            field.onChange(val);
+                            form.setValue("walletAddress", "");
+                          }}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <Input type="number" step="0.01" placeholder="1.00" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white placeholder:text-zinc-600" />
+                            <SelectTrigger className="h-12 dark-input rounded-xl">
+                              <SelectValue placeholder="Select method" />
+                            </SelectTrigger>
                           </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="network"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Payment Method</FormLabel>
-                          <Select
-                            onValueChange={(val) => {
-                              field.onChange(val);
-                              form.setValue("walletAddress", "");
-                            }}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white">
-                                <SelectValue placeholder="Select method" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="bg-zinc-900 border-zinc-800">
-                              {networkOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value} className="text-white hover:bg-zinc-800">{opt.label}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="walletAddress"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-zinc-500 uppercase text-xs font-bold">
-                            {networkMeta.addressLabel}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder={networkMeta.addressPlaceholder}
-                              {...field}
-                              className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 font-mono text-sm h-11 text-white placeholder:text-zinc-600"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold uppercase tracking-wider hover:from-yellow-400 hover:to-yellow-300 mt-4 shadow-lg shadow-yellow-500/30"
-                      disabled={withdrawMutation.isPending}
-                    >
-                      {withdrawMutation.isPending ? <Loader2 className="animate-spin h-5 w-5" /> : "Withdraw Now"}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
+                          <SelectContent className="bg-zinc-900 border-zinc-800">
+                            {networkOptions.map(opt => (
+                              <SelectItem key={opt.value} value={opt.value} className="text-white hover:bg-zinc-800">{opt.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="walletAddress"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">
+                          {networkMeta.addressLabel}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={networkMeta.addressPlaceholder}
+                            {...field}
+                            className="h-12 dark-input rounded-xl font-mono text-sm"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full h-12 btn-premium rounded-xl font-bold mt-2"
+                    disabled={withdrawMutation.isPending}
+                  >
+                    {withdrawMutation.isPending ? <Loader2 className="animate-spin h-5 w-5" /> : "Withdraw Now"}
+                  </Button>
+                </form>
+              </Form>
+            </div>
           </div>
 
+          {/* History */}
           <div className="lg:col-span-2">
-            <Card className="dark-card h-full">
-              <CardHeader>
-                <CardTitle className="uppercase tracking-wider text-white">Withdrawal History</CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader className="bg-zinc-800/50">
-                      <TableRow className="border-zinc-800 hover:bg-transparent">
-                        <TableHead className="font-bold text-zinc-500">Date</TableHead>
-                        <TableHead className="font-bold text-zinc-500">Amount</TableHead>
-                        <TableHead className="font-bold text-zinc-500">Method</TableHead>
-                        <TableHead className="font-bold text-zinc-500">Status</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {historyLoading ? (
-                        <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin h-6 w-6 mx-auto text-yellow-400"/></TableCell></TableRow>
-                      ) : historyData?.withdrawals?.length ? (
-                        historyData.withdrawals.map((w) => (
-                          <TableRow key={w.id} className="border-zinc-800 hover:bg-zinc-800/30">
-                            <TableCell className="text-zinc-400 whitespace-nowrap">
-                              {new Date(w.createdAt).toLocaleDateString()}
-                            </TableCell>
-                            <TableCell className="font-bold text-white">{w.amount} USDT</TableCell>
-                            <TableCell>
-                              <Badge variant="outline" className="font-semibold text-xs border-zinc-700 text-zinc-300">
-                                {networkDisplayName(w.network)}
-                              </Badge>
-                            </TableCell>
-                            <TableCell>
-                              <Badge
-                                variant={w.status === "paid" ? "default" : w.status === "rejected" ? "destructive" : "secondary"}
-                                className={`uppercase tracking-wider text-[10px] ${w.status === "paid" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : w.status === "rejected" ? "bg-red-500/20 text-red-400 border-red-500/30" : "bg-amber-500/20 text-amber-400 border-amber-500/30"}`}
-                              >
-                                {w.status}
-                              </Badge>
-                            </TableCell>
-                          </TableRow>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={4} className="h-32 text-center text-zinc-500">
-                            No withdrawals yet.
+            <div className="premium-card rounded-2xl overflow-hidden h-full flex flex-col">
+              <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-900/20">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center border border-blue-500/20">
+                  <History className="h-5 w-5 text-blue-400" />
+                </div>
+                <h2 className="font-bold text-white">Withdrawal History</h2>
+              </div>
+              <div className="flex-1 overflow-x-auto">
+                <Table>
+                  <TableHeader className="bg-zinc-900/50">
+                    <TableRow className="border-zinc-800 hover:bg-transparent">
+                      <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Date</TableHead>
+                      <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Amount</TableHead>
+                      <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Method</TableHead>
+                      <TableHead className="font-bold text-zinc-500 text-xs uppercase tracking-wider">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {historyLoading ? (
+                      <TableRow><TableCell colSpan={4} className="text-center py-12"><Loader2 className="animate-spin h-6 w-6 mx-auto text-amber-400"/></TableCell></TableRow>
+                    ) : historyData?.withdrawals?.length ? (
+                      historyData.withdrawals.map((w) => (
+                        <TableRow key={w.id} className="border-zinc-800 hover:bg-zinc-800/30">
+                          <TableCell className="text-zinc-400 whitespace-nowrap text-sm">
+                            {new Date(w.createdAt).toLocaleDateString()}
+                          </TableCell>
+                          <TableCell className="font-bold text-white">{w.amount} USDT</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="font-semibold text-xs border-zinc-700 text-zinc-300">
+                              {networkDisplayName(w.network)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={w.status === "paid" ? "default" : w.status === "rejected" ? "destructive" : "secondary"}
+                              className={`uppercase tracking-wider text-[10px] font-bold ${
+                                w.status === "paid" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" :
+                                w.status === "rejected" ? "bg-red-500/20 text-red-400 border-red-500/30" :
+                                "bg-amber-500/20 text-amber-400 border-amber-500/30"
+                              }`}
+                            >
+                              {w.status}
+                            </Badge>
                           </TableCell>
                         </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </div>
-              </CardContent>
-            </Card>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={4} className="h-40 text-center text-zinc-500">
+                          No withdrawals yet.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

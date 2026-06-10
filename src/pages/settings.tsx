@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Lock, Sparkles } from "lucide-react";
 import { useEffect } from "react";
 
 const profileSchema = z.object({
@@ -76,20 +76,30 @@ export default function Settings() {
   return (
     <Layout>
       <div className="space-y-8 max-w-4xl mx-auto">
-        <div>
-          <h2 className="text-3xl font-black tracking-tight uppercase text-white">Settings</h2>
-          <p className="text-zinc-500">Manage your account preferences.</p>
+        {/* Header */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center border border-amber-500/20">
+            <Sparkles className="h-5 w-5 text-amber-400" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-black text-white">Settings</h1>
+            <p className="text-zinc-500">Manage your account preferences</p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="dark-card">
-            <CardHeader>
-              <CardTitle className="uppercase tracking-wider text-white">Profile Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-6">
-                <FormLabel className="text-zinc-500 uppercase text-xs font-bold mb-2 block">Email (Read Only)</FormLabel>
-                <Input value={user?.email || ""} disabled className="bg-zinc-800/50 border-zinc-700 text-zinc-400" />
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Profile Card */}
+          <div className="premium-card rounded-2xl overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-900/20">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center border border-amber-500/20">
+                <User className="h-4 w-4 text-amber-400" />
+              </div>
+              <h2 className="font-bold text-white">Profile Information</h2>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Email (Read Only)</FormLabel>
+                <Input value={user?.email || ""} disabled className="mt-2 h-12 dark-input rounded-xl opacity-60" />
               </div>
               <Form {...profileForm}>
                 <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
@@ -98,28 +108,32 @@ export default function Settings() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Username</FormLabel>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Username</FormLabel>
                         <FormControl>
-                          <Input {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
+                          <Input {...field} className="h-12 dark-input rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={updateProfileMutation.isPending} className="font-bold bg-gradient-to-r from-yellow-500 to-yellow-400 text-black hover:from-yellow-400 hover:to-yellow-300 shadow-lg shadow-yellow-500/30">
+                  <Button type="submit" disabled={updateProfileMutation.isPending} className="h-12 btn-premium rounded-xl font-bold">
                     {updateProfileMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Save Profile
                   </Button>
                 </form>
               </Form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="dark-card">
-            <CardHeader>
-              <CardTitle className="uppercase tracking-wider text-white">Change Password</CardTitle>
-            </CardHeader>
-            <CardContent>
+          {/* Password Card */}
+          <div className="premium-card rounded-2xl overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-900/20">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-500/20 to-red-600/10 flex items-center justify-center border border-red-500/20">
+                <Lock className="h-4 w-4 text-red-400" />
+              </div>
+              <h2 className="font-bold text-white">Change Password</h2>
+            </div>
+            <div className="p-6">
               <Form {...passwordForm}>
                 <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-4">
                   <FormField
@@ -127,9 +141,9 @@ export default function Settings() {
                     name="currentPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Current Password</FormLabel>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Current Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
+                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,9 +154,9 @@ export default function Settings() {
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">New Password</FormLabel>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
+                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -153,22 +167,22 @@ export default function Settings() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-zinc-500 uppercase text-xs font-bold">Confirm New Password</FormLabel>
+                        <FormLabel className="text-xs text-zinc-500 uppercase tracking-wider font-bold">Confirm New Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-zinc-900 border-zinc-800 focus-visible:ring-yellow-500 h-11 text-white" />
+                          <Input type="password" {...field} className="h-12 dark-input rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="outline" className="font-bold text-white border-zinc-700 hover:border-yellow-500/40 hover:text-yellow-400">
+                  <Button type="submit" disabled={changePasswordMutation.isPending} variant="outline" className="h-12 w-full rounded-xl font-bold border-zinc-700 hover:border-amber-500/40 hover:text-amber-400">
                     {changePasswordMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Update Password
                   </Button>
                 </form>
               </Form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

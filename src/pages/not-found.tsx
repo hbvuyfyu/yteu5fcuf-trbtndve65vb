@@ -1,14 +1,16 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, AlertCircle, Coins } from "lucide-react";
+import { Home, AlertCircle, Coins, ArrowLeft } from "lucide-react";
 
 function CachvioLogo() {
   return (
-    <div className="flex items-center justify-center gap-2">
-      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg shadow-yellow-500/30">
+    <div className="flex items-center justify-center gap-3">
+      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30">
         <Coins className="w-6 h-6 text-black" />
       </div>
-      <span className="text-2xl font-black tracking-tight text-white">Cach<span className="text-yellow-400">vio</span></span>
+      <div className="text-2xl font-black tracking-tight">
+        <span className="text-white">Cach</span><span className="text-amber-400">vio</span>
+      </div>
     </div>
   );
 }
@@ -16,26 +18,48 @@ function CachvioLogo() {
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-yellow-600/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none" />
-      <div className="relative z-10 text-center space-y-5">
-        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center mx-auto">
-          <AlertCircle className="h-8 w-8 text-yellow-400" />
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-600/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4" />
+      </div>
+
+      {/* Grid Pattern */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: 'linear-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.5) 1px, transparent 1px)',
+        backgroundSize: '60px 60px'
+      }} />
+
+      <div className="relative z-10 text-center space-y-8">
+        {/* Logo */}
+        <Link href="/">
+          <CachvioLogo />
+        </Link>
+
+        {/* Icon */}
+        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center mx-auto border border-amber-500/25">
+          <AlertCircle className="h-12 w-12 text-amber-400" />
         </div>
+
+        {/* Content */}
         <div>
-          <h1 className="text-6xl font-black text-yellow-400 mb-2">404</h1>
-          <h2 className="text-2xl font-bold text-white mb-2">Page Not Found</h2>
-          <p className="text-zinc-500 text-sm">The page you're looking for doesn't exist or has been moved.</p>
+          <h1 className="text-8xl font-black gold-gradient-text mb-4">404</h1>
+          <h2 className="text-3xl font-bold text-white mb-3">Page Not Found</h2>
+          <p className="text-zinc-500 text-lg max-w-md">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/">
-            <Button className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold shadow-lg shadow-yellow-500/30 hover:from-yellow-400 hover:to-yellow-300">
+            <Button className="h-12 btn-premium rounded-xl font-bold px-8">
               <Home className="h-4 w-4 mr-2" />Back to Home
             </Button>
           </Link>
           <Link href="/dashboard">
-            <Button variant="outline" className="border-zinc-800 text-zinc-400 hover:text-yellow-400 hover:border-yellow-500/40">
-              Go to Dashboard
+            <Button variant="outline" className="h-12 rounded-xl font-bold border-amber-500/30 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/50 px-8">
+              <ArrowLeft className="h-4 w-4 mr-2" />Go to Dashboard
             </Button>
           </Link>
         </div>

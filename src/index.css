@@ -55,81 +55,81 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* ────────────── DARK BLACK & GOLD THEME ────────────── */
+/* ────────────── PREMIUM BLACK & GOLD THEME ────────────── */
 :root {
   --button-outline: rgba(212, 175, 55, 0.15);
   --badge-outline: rgba(212, 175, 55, 0.12);
   --opaque-button-border-intensity: -6;
-  --elevate-1: rgba(212, 175, 55, 0.03);
-  --elevate-2: rgba(212, 175, 55, 0.06);
+  --elevate-1: rgba(212, 175, 55, 0.08);
+  --elevate-2: rgba(212, 175, 55, 0.12);
 
-  /* Deep black background */
-  --background: 0 0% 5%;
-  --foreground: 45 35% 88%;
+  /* Pure black background */
+  --background: 0 0% 3%;
+  --foreground: 45 30% 95%;
 
-  /* Gold accent borders */
-  --border: 45 30% 25%;
+  /* Rich gold borders */
+  --border: 43 50% 22%;
 
-  /* Dark cards with subtle gold borders */
-  --card: 0 0% 8%;
-  --card-foreground: 45 35% 88%;
-  --card-border: 45 40% 35%;
+  /* Premium card backgrounds */
+  --card: 0 0% 6%;
+  --card-foreground: 45 30% 95%;
+  --card-border: 43 60% 38%;
 
-  /* Sidebar — darker black */
+  /* Deep sidebar */
   --sidebar: 0 0% 4%;
-  --sidebar-foreground: 45 35% 88%;
-  --sidebar-border: 45 30% 20%;
-  --sidebar-primary: 45 75% 50%;
-  --sidebar-primary-foreground: 0 0% 5%;
-  --sidebar-accent: 45 25% 12%;
-  --sidebar-accent-foreground: 45 35% 88%;
-  --sidebar-ring: 45 75% 50%;
+  --sidebar-foreground: 45 30% 95%;
+  --sidebar-border: 43 40% 18%;
+  --sidebar-primary: 43 90% 54%;
+  --sidebar-primary-foreground: 0 0% 3%;
+  --sidebar-accent: 43 25% 10%;
+  --sidebar-accent-foreground: 45 30% 95%;
+  --sidebar-ring: 43 90% 54%;
 
-  --popover: 0 0% 6%;
-  --popover-foreground: 45 35% 88%;
-  --popover-border: 45 30% 25%;
+  --popover: 0 0% 5%;
+  --popover-foreground: 45 30% 95%;
+  --popover-border: 43 50% 22%;
 
-  /* Gold primary color */
-  --primary: 45 75% 50%;
-  --primary-foreground: 0 0% 5%;
+  /* Brilliant gold primary */
+  --primary: 43 90% 54%;
+  --primary-foreground: 0 0% 3%;
 
-  --secondary: 45 15% 15%;
-  --secondary-foreground: 45 35% 88%;
+  --secondary: 43 20% 12%;
+  --secondary-foreground: 45 30% 95%;
 
-  --muted: 45 10% 12%;
-  --muted-foreground: 45 20% 55%;
+  --muted: 43 10% 10%;
+  --muted-foreground: 43 15% 50%;
 
-  --accent: 45 35% 15%;
-  --accent-foreground: 45 75% 55%;
+  --accent: 43 40% 18%;
+  --accent-foreground: 43 90% 60%;
 
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 100%;
 
-  --input: 45 20% 18%;
-  --ring: 45 75% 50%;
+  --input: 43 15% 12%;
+  --ring: 43 90% 54%;
 
-  /* Gold chart colors */
-  --chart-1: 45 75% 50%;
-  --chart-2: 45 65% 45%;
-  --chart-3: 35 70% 40%;
-  --chart-4: 50 80% 55%;
-  --chart-5: 40 60% 60%;
+  /* Gold spectrum charts */
+  --chart-1: 43 90% 54%;
+  --chart-2: 38 85% 48%;
+  --chart-3: 48 80% 52%;
+  --chart-4: 35 75% 45%;
+  --chart-5: 50 70% 58%;
 
   --app-font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --app-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
   --app-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  /* Gold-tinted shadows */
-  --shadow-2xs: 0 1px 2px 0 rgba(212, 175, 55, 0.03);
-  --shadow-xs: 0 1px 3px 0 rgba(212, 175, 55, 0.05), 0 1px 2px -1px rgba(212, 175, 55, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(212, 175, 55, 0.06), 0 1px 2px -1px rgba(212, 175, 55, 0.06);
-  --shadow: 0 1px 6px 0 rgba(212, 175, 55, 0.08), 0 1px 4px -1px rgba(212, 175, 55, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  /* Premium shadows */
+  --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.5), 0 1px 3px -1px rgba(0, 0, 0, 0.4);
+  --shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.6), 0 1px 5px -1px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.6), 0 3px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 15px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 25px 40px -8px rgba(0, 0, 0, 0.7), 0 12px 15px -6px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 35px 60px -15px rgba(0, 0, 0, 0.8);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
@@ -147,8 +147,8 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
     background-image:
-      radial-gradient(ellipse at top, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(212, 175, 55, 0.02) 0%, transparent 40%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(180, 140, 20, 0.1) 0%, transparent 50%);
     background-attachment: fixed;
   }
 }
@@ -162,58 +162,212 @@
   }
 }
 
-/* Custom gold gradient backgrounds */
+/* Premium Gold Gradient */
 .gold-gradient {
-  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #c9a227 100%);
+  background: linear-gradient(135deg, #d4af37 0%, #f5d547 25%, #d4af37 50%, #aa8c2c 100%);
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #c9a227 100%);
+  background: linear-gradient(135deg, #f5d547 0%, #d4af37 50%, #aa8c2c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.dark-card {
-  background: linear-gradient(145deg, rgba(20, 20, 20, 1) 0%, rgba(10, 10, 10, 1) 100%);
+/* Premium Card */
+.premium-card {
+  background: linear-gradient(165deg, rgba(15, 15, 15, 0.95) 0%, rgba(8, 8, 8, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(212, 175, 55, 0.1),
+    inset 0 1px 0 rgba(212, 175, 55, 0.1);
+}
+
+.premium-card-glow {
+  background: linear-gradient(165deg, rgba(20, 18, 15, 0.95) 0%, rgba(10, 8, 5, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow:
+    0 4px 30px rgba(212, 175, 55, 0.15),
+    0 0 60px rgba(212, 175, 55, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
+.glass-gold {
+  background: rgba(20, 17, 10, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+/* Glow Effects */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.1);
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.3),
+    0 0 40px rgba(212, 175, 55, 0.15),
+    0 0 60px rgba(212, 175, 55, 0.05);
 }
 
-.glow-gold-hover:hover {
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), 0 0 50px rgba(212, 175, 55, 0.15);
+.glow-gold-intense {
+  box-shadow:
+    0 0 30px rgba(212, 175, 55, 0.5),
+    0 0 60px rgba(212, 175, 55, 0.3),
+    0 0 90px rgba(212, 175, 55, 0.1);
 }
 
-/* Animated shimmer effect */
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+/* Animated Border */
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(212, 175, 55, 0.3); }
+  50% { border-color: rgba(245, 213, 71, 0.5); }
+}
+
+.animated-border {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Shimmer Effect */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 
 .shimmer {
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 3s ease-in-out infinite;
 }
 
-/* Smooth scrollbar for dark theme */
+/* Pulse Glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+    opacity: 0.9;
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Professional Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 8%);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(45 30% 25%);
-  border-radius: 4px;
+  background: linear-gradient(180deg, #d4af37 0%, #aa8c2c 100%);
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(45 40% 35%);
+  background: linear-gradient(180deg, #f5d547 0%, #d4af37 100%);
+}
+
+/* Premium Button */
+.btn-premium {
+  background: linear-gradient(135deg, #d4af37 0%, #f5d547 30%, #d4af37 70%, #aa8c2c 100%);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Dark Input */
+.dark-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.dark-input:focus {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.1);
+  outline: none;
+}
+
+.dark-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Stat Card */
+.stat-card {
+  background: linear-gradient(145deg, rgba(20, 18, 15, 0.8) 0%, rgba(12, 10, 8, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+/* Hero Background */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 100% 70% at 50% -30%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 80% 100%, rgba(180, 140, 20, 0.08) 0%, transparent 40%),
+    linear-gradient(180deg, #030303 0%, #0a0a0a 50%, #030303 100%);
 }

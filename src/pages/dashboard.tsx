@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "wouter";
-import { Coins, Download, CheckCircle2, History, ArrowUpRight, Gamepad2, Zap, ExternalLink } from "lucide-react";
+import { Coins, Download, CheckCircle2, History, ArrowUpRight, Gamepad2, Zap, ExternalLink, TrendingUp, Sparkles, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const formatMoney = (value?: string | number | null) => {
@@ -45,95 +45,145 @@ export default function Dashboard() {
     : featuredPlatform?.apiEndpoint;
 
   const statCards = [
-    { label: "Current Balance", value: `$${formatMoney(balanceData?.balance)}`, icon: Coins, color: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20", highlight: true },
-    { label: "Total Earned", value: `$${formatMoney(stats?.totalEarned)}`, icon: CheckCircle2, color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", highlight: false },
-    { label: "Total Withdrawn", value: `$${formatMoney(stats?.totalWithdrawn)}`, icon: Download, color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20", highlight: false },
-    { label: "Pending", value: `$${formatMoney(stats?.pendingWithdrawals)}`, icon: History, color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20", highlight: false },
+    {
+      label: "Current Balance",
+      value: `$${formatMoney(balanceData?.balance)}`,
+      icon: Wallet,
+      color: "text-amber-400",
+      gradient: "from-amber-500/20 to-amber-600/10",
+      border: "border-amber-500/30",
+      highlight: true,
+      bgIcon: "bg-gradient-to-br from-amber-500/30 to-amber-600/20"
+    },
+    {
+      label: "Total Earned",
+      value: `$${formatMoney(stats?.totalEarned)}`,
+      icon: TrendingUp,
+      color: "text-emerald-400",
+      gradient: "from-emerald-500/15 to-emerald-600/8",
+      border: "border-emerald-500/20",
+      highlight: false,
+      bgIcon: "bg-gradient-to-br from-emerald-500/20 to-emerald-600/10"
+    },
+    {
+      label: "Total Withdrawn",
+      value: `$${formatMoney(stats?.totalWithdrawn)}`,
+      icon: Download,
+      color: "text-blue-400",
+      gradient: "from-blue-500/15 to-blue-600/8",
+      border: "border-blue-500/20",
+      highlight: false,
+      bgIcon: "bg-gradient-to-br from-blue-500/20 to-blue-600/10"
+    },
+    {
+      label: "Pending",
+      value: `$${formatMoney(stats?.pendingWithdrawals)}`,
+      icon: History,
+      color: "text-orange-400",
+      gradient: "from-orange-500/15 to-orange-600/8",
+      border: "border-orange-500/20",
+      highlight: false,
+      bgIcon: "bg-gradient-to-br from-orange-500/20 to-orange-600/10"
+    },
   ];
 
   return (
     <Layout>
-      <div className="space-y-6 max-w-7xl">
+      <div className="space-y-8 max-w-7xl">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-black tracking-tight text-white">Dashboard</h2>
-            <p className="text-zinc-500 text-sm mt-0.5">Here's your earnings overview.</p>
+            <h1 className="text-3xl font-black text-white mb-1">Dashboard</h1>
+            <p className="text-zinc-500">Your earnings overview at a glance</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <Link href="/platforms">
-              <Button variant="outline" size="sm" className="border-zinc-800 hover:border-yellow-500/40 hover:text-yellow-400">
-                <Gamepad2 className="h-4 w-4 mr-1.5" />Browse Offers
+              <Button variant="outline" className="border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/30 rounded-xl">
+                <Gamepad2 className="h-4 w-4 mr-2" />Browse Offers
               </Button>
             </Link>
             <Link href="/withdraw">
-              <Button size="sm" className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold hover:from-yellow-400 hover:to-yellow-300 shadow-lg shadow-yellow-500/30">
-                <ArrowUpRight className="h-4 w-4 mr-1.5" />Withdraw
+              <Button className="btn-premium rounded-xl">
+                <ArrowUpRight className="h-4 w-4 mr-2" />Withdraw
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+        {/* Stats Grid */}
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {statCards.map((stat) => (
-            <Card key={stat.label} className={`dark-card ${stat.highlight ? "border-yellow-500/30" : ""}`}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
-                <CardTitle className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase tracking-wider">{stat.label}</CardTitle>
-                <div className={`w-7 h-7 rounded-lg ${stat.bg} border ${stat.border} flex items-center justify-center shrink-0`}>
-                  <stat.icon className={`h-3.5 w-3.5 ${stat.color}`} />
+            <div
+              key={stat.label}
+              className={`premium-card rounded-2xl p-5 ${stat.highlight ? "glow-gold" : ""}`}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className={`w-12 h-12 rounded-xl ${stat.bgIcon} flex items-center justify-center border ${stat.border}`}>
+                  <stat.icon className={`h-6 w-6 ${stat.color}`} />
                 </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                {statsLoading ? (
-                  <Skeleton className="h-8 w-24 mt-1 bg-zinc-800" />
-                ) : (
-                  <div className={`text-2xl font-black ${stat.highlight ? "text-yellow-400" : "text-white"}`}>
-                    {stat.value}
-                  </div>
+                {stat.highlight && (
+                  <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
                 )}
-                <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-wider">USDT</p>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="mb-1">
+                {statsLoading ? (
+                  <Skeleton className="h-9 w-28 bg-zinc-800 rounded" />
+                ) : (
+                  <span className={`text-3xl font-black ${stat.highlight ? "gold-gradient-text" : "text-white"}`}>
+                    {stat.value}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider font-bold">{stat.label}</p>
+            </div>
           ))}
         </div>
 
-        {/* Featured Platform */}
-        <div className="rounded-2xl dark-card overflow-hidden">
-          {/* Header bar */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900/50">
-            <div className="flex items-center gap-2.5">
-              <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse shadow-lg shadow-yellow-400/50" />
+        {/* Featured Platform Card */}
+        <div className="premium-card-glow rounded-2xl overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-amber-900/20 bg-black/50">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-lg shadow-amber-400/50" />
+                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping opacity-50" />
+              </div>
               {featuredPlatform?.logoUrl ? (
-                <img src={featuredPlatform.logoUrl} alt={featuredPlatform.name} className="w-6 h-6 rounded object-cover border border-zinc-700" />
+                <img src={featuredPlatform.logoUrl} alt={featuredPlatform.name} className="w-7 h-7 rounded-lg object-cover border border-amber-500/20" />
               ) : (
-                <div className="w-6 h-6 rounded-md bg-yellow-500/15 border border-yellow-500/25 flex items-center justify-center">
-                  <Zap className="h-3.5 w-3.5 text-yellow-400" />
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-amber-400" />
                 </div>
               )}
-              <span className="font-bold text-sm text-white">
+              <span className="font-bold text-white">
                 {featuredPlatform ? featuredPlatform.name : "No Featured Platform"}
               </span>
               {featuredPlatform && (
-                <span className="text-[10px] bg-yellow-500 text-black px-2 py-0.5 rounded font-bold uppercase tracking-wider">Live</span>
+                <span className="text-[10px] bg-amber-500 text-black px-2 py-0.5 rounded-lg font-bold uppercase tracking-wider">Live</span>
               )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {offerUrl && (
-                <a href={offerUrl} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs text-yellow-400 hover:underline font-medium">
-                  <ExternalLink className="h-3 w-3" /> Open in tab
+                <a
+                  href={offerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-medium transition-colors"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Open in new tab
                 </a>
               )}
               <Link href="/platforms">
-                <Button variant="outline" size="sm" className="h-7 text-xs border-zinc-800 hover:border-yellow-500/40 hover:text-yellow-400">
-                  <Gamepad2 className="h-3 w-3 mr-1" /> Switch Platform
+                <Button variant="outline" size="sm" className="h-8 text-xs border-amber-500/20 text-amber-400 hover:bg-amber-500/10 rounded-lg">
+                  <Gamepad2 className="h-3.5 w-3.5 mr-1.5" />
+                  Switch
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Iframe area */}
+          {/* Iframe Area */}
           {featuredPlatform && offerUrl ? (
             <iframe
               key={featuredPlatform.id}
@@ -144,16 +194,16 @@ export default function Dashboard() {
               title={featuredPlatform.name}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center text-center py-20 px-8 bg-zinc-900/30" style={{ height: "600px" }}>
-              <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center mb-5">
-                <Gamepad2 className="h-8 w-8 text-yellow-400" />
+            <div className="flex flex-col items-center justify-center text-center py-24 px-8" style={{ height: "600px" }}>
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/25 flex items-center justify-center mb-6">
+                <Gamepad2 className="h-10 w-10 text-amber-400" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">No Platform Featured Yet</h3>
-              <p className="text-zinc-500 text-sm max-w-xs mb-5">
-                The admin hasn't set a featured platform for the dashboard yet. Browse all available offerwalls.
+              <h3 className="text-xl font-bold text-white mb-3">No Platform Featured</h3>
+              <p className="text-zinc-500 text-sm max-w-sm mb-6">
+                The admin hasn't configured a featured platform yet. Browse available offerwalls to start earning.
               </p>
               <Link href="/platforms">
-                <Button className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black font-bold hover:from-yellow-400 hover:to-yellow-300">
+                <Button className="btn-premium rounded-xl">
                   <Gamepad2 className="h-4 w-4 mr-2" /> Browse Offerwalls
                 </Button>
               </Link>
